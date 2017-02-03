@@ -85,11 +85,11 @@ static SQLiteManager *shareObj = nil;
     NSDirectoryEnumerator *fileEnumerator = [fileManager enumeratorAtPath:cachePath];
     for (NSString *fileName in fileEnumerator) {
         NSString *filePath = [cachePath stringByAppendingPathComponent:fileName];
-        NSLog(@"%@",filePath);
+//        NSLog(@"%@",filePath);
         NSDictionary *attrs = [fileManager attributesOfItemAtPath:filePath error:nil];
         size += [attrs fileSize];
     }
-    NSLog(@"Cache %.1lfM",(float)size/1024/1024);
+//    NSLog(@"Cache %.1lfM",(float)size/1024/1024);
     return size;
 }
 // 清理缓存
@@ -98,14 +98,14 @@ static SQLiteManager *shareObj = nil;
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString * cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
-    NSLog(@"%@",cachePath);
+//    NSLog(@"%@",cachePath);
     NSDirectoryEnumerator *fileEnumerator = [fileManager enumeratorAtPath:cachePath];
     for (NSString *fileName in fileEnumerator) {
         NSString *filePath = [cachePath stringByAppendingPathComponent:fileName];
         [fileManager removeItemAtPath:filePath error:nil];
     }
 //    if ([fileManager removeItemAtPath:cachePath error:nil] == true) {
-        NSLog(@"清理成功");
+//        NSLog(@"清理成功");
 //    }
 //    [fileManager createDirectoryAtPath:cachePath
 //           withIntermediateDirectories:YES

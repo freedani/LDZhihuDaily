@@ -74,12 +74,10 @@
         model.topStoriesArray = mutablePosts;
         if (block) {
             block(model, nil);
-            NSLog(@"success");
         }
     } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
         if (block) {
             block([HomepageModel new], error);
-            NSLog(@"failure");
         }
     }];
 }
@@ -90,10 +88,8 @@
         return nil;
     } else {
         NSString *stringForHTTP = [NSString stringWithFormat:@"news/before/%@",date];
-//        NSLog(@"date:%@",date);
         self.isLoading = YES;
         return [[AFAppDotNetAPIClient sharedClient] GET:stringForHTTP parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id JSON) {
-            NSLog(@"success:%@",date);
             DailyNewsList *model = [DailyNewsList new];
             NSArray *latestStoriesFromResponse = [JSON valueForKeyPath:@"stories"];
             NSMutableArray *mutableLatestNews = [NSMutableArray arrayWithCapacity:[latestStoriesFromResponse count]];
@@ -108,13 +104,38 @@
                 self.isLoading = NO;
             }
         } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
-            NSLog(@"failure:%@",date);
             if (block) {
                 block([DailyNewsList new], error);
                 self.isLoading = NO;
             }
         }];
     }
+}
+
+- (NSInteger)getPreviousNewsWithSection:(NSInteger )section currentID:(NSInteger)currentID{
+    DailyNewsList *model = _storiesArray[section];
+    
+    __block NSInteger previousNews = -1;
+    
+    [model.dailyNewsList enumerateObjectsUsingBlock:^(Titles *title, NSUInteger idx, BOOL *stop){
+        if (title.titleID == currentID) {
+            *stop = YES;
+        }
+        else
+            previousNews = title.titleID;
+    }];
+    
+    if (previousNews > 0) {
+        return previousNews;
+    }
+    
+    if (section - 1 >= 0) {
+        previousNews = [_storiesArray[section - 1].dailyNewsList lastObject].titleID;
+        section -= 1;
+        return previousNews;
+    }
+    
+    return previousNews;
 }
 
 @end

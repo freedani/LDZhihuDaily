@@ -62,7 +62,6 @@
     if (modelString) {
         NSData *data =[modelString dataUsingEncoding:NSUTF8StringEncoding];
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-        NSLog(@"cache exist!");
         NewsDetailModel *newsDetailModel = [MTLJSONAdapter modelOfClass:[NewsDetailModel class] fromJSONDictionary:dic error:nil];;
         [_newsDetailView updateNewsWithModel:newsDetailModel];
     } else {

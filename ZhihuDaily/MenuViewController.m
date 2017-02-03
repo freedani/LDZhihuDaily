@@ -33,7 +33,7 @@
 }
 
 - (void)initUI {
-    NSLog(@"initMenuUI");
+//    NSLog(@"initMenuUI");
     UIButton *clearStorageButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 200, 200, 100)];
     float byteSize = [[SQLiteManager sharedInstance] fileSize];
     CGFloat cacheSize = (float)byteSize/1024/1024;
@@ -55,7 +55,7 @@
             [[SQLiteManager sharedInstance] clearFile];
         //        [[SDImageCache sharedImageCache] clearDisk];
         //        [[NSURLCache sharedURLCache] removeAllCachedResponses];
-            NSLog(@"cache clear");
+//            NSLog(@"cache clear");
     }];
     UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"cancle" style:UIAlertActionStyleDefault handler:nil];
     [alertController addAction:ok];

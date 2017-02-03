@@ -55,7 +55,6 @@
     self.launchViewController = [LaunchViewController new];
     [self addChildViewController:self.launchViewController];
     [self.view addSubview:self.launchViewController.view];
-    NSLog(@"initLaunchVC");
 }
 
 - (void) removeLaunchVC {
@@ -65,7 +64,6 @@
         [_launchViewController.view removeFromSuperview];
         [_launchViewController removeFromParentViewController];
     }];
-    NSLog(@"removeLaunchVC");
 }
 
 - (void) initUI {
