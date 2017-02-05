@@ -8,16 +8,15 @@
 
 #import "NewsDetailView.h"
 #import "NewsDetailHeaderView.h"
+#import "NewsDetailViewController.h"
 
 
 @interface NewsDetailView () <UIScrollViewDelegate, UIWebViewDelegate>
 
 @property (nonatomic, strong) UIWebView *webView;
-@property (nonatomic, strong) UIView *bottomBarView;
 @property (nonatomic, strong) NewsDetailHeaderView *headerView;
 @property (nonatomic, strong) NewsDetailModel *newsModel;
-@property (nonatomic, strong) UIButton *nextButton;
-@property (nonatomic, strong) UIButton *previousButton;
+
 
 @end
 
@@ -31,6 +30,7 @@
     return self;
 }
 
+
 -(void)initUI{
     
     UIWebView *webView = [[UIWebView alloc]init];
@@ -39,6 +39,7 @@
     webView.delegate = self;
     
     UIView *bottomBarView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BottomBar"]];
+    bottomBarView.userInteractionEnabled = YES;
     
     [self addSubview:webView];
     [self addSubview:bottomBarView];
@@ -46,7 +47,7 @@
     [bottomBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [webView setTranslatesAutoresizingMaskIntoConstraints:NO];
     
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[webView]-0-[bottomBarView]-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(webView,bottomBarView)]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[webView]-0-[bottomBarView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(webView,bottomBarView)]];
     
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[bottomBarView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(bottomBarView)]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[webView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(webView)]];
@@ -54,10 +55,25 @@
     self.webView = webView;
     self.bottomBarView = bottomBarView;
     
+//    UIButton *previousButton = [[UIButton alloc] initWithFrame:CGRectNull];
+//    
+//    [self.bottomBarView addSubview:previousButton];
+//    [previousButton setTranslatesAutoresizingMaskIntoConstraints:NO];
+//    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[previousButton]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(previousButton)]];
+//    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[previousButton]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(previousButton)]];
+//    self.previousButton = previousButton;
+//    [previousButton addTarget:self action:@selector(switchToPreviousNews) forControlEvents:UIControlEventTouchUpInside];
+//    [previousButton setBackgroundColor:[UIColor blueColor]];
+    
     NewsDetailHeaderView *headerView = [[NewsDetailHeaderView alloc] initWithFrame:CGRectMake(0,0,kScreenWidth,210.0f)];
     [_webView.scrollView addSubview:headerView];
     self.headerView = headerView;
 }
+
+- (void)switchToPreviousNews {
+    NSLog(@"view switchToPreviousNews");
+}
+
 
 #pragma mark - DataSource Method
 - (void)updateNewsWithModel:(NewsDetailModel *)model{

@@ -112,13 +112,14 @@
     }
 }
 
-- (NSInteger)getPreviousNewsWithSection:(NSInteger )section currentID:(NSInteger)currentID{
-    DailyNewsList *model = _storiesArray[section];
+- (BOOL)getPreviousNewsWithSection:(NSInteger *)section currentID:(NSInteger *)currentID {
+    
+    DailyNewsList *model = _storiesArray[*section];
     
     __block NSInteger previousNews = -1;
     
     [model.dailyNewsList enumerateObjectsUsingBlock:^(Titles *title, NSUInteger idx, BOOL *stop){
-        if (title.titleID == currentID) {
+        if (title.titleID == *currentID) {
             *stop = YES;
         }
         else
@@ -126,16 +127,17 @@
     }];
     
     if (previousNews > 0) {
-        return previousNews;
+        *currentID = previousNews;
+        return true;
     }
     
-    if (section - 1 >= 0) {
-        previousNews = [_storiesArray[section - 1].dailyNewsList lastObject].titleID;
-        section -= 1;
-        return previousNews;
+    if (*section - 1 >= 0) {
+        previousNews = [_storiesArray[*section - 1].dailyNewsList lastObject].titleID;
+        *section -= 1;
+        *currentID = previousNews;
+        return true;
     }
-    
-    return previousNews;
+    return false;
 }
 
 @end

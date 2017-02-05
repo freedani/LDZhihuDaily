@@ -17,6 +17,7 @@
 
 @property (nonatomic, strong) NewsDetailView *newsDetailView;
 @property (nonatomic, weak, readonly) HomepageModel *homePageModel;
+@property (nonatomic, strong) UIButton *previousButton;
 
 @end
 
@@ -54,6 +55,17 @@
     self.newsDetailView = [[NewsDetailView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
     _newsDetailView.delegate = self;
     [self.view addSubview:_newsDetailView];
+    
+    UIButton *previousButton = [[UIButton alloc] initWithFrame:CGRectNull];
+    [previousButton addTarget:self action:@selector(switchToPreviousNews) forControlEvents:UIControlEventTouchUpInside];
+    self.previousButton = previousButton;
+    [self.newsDetailView.bottomBarView addSubview:self.previousButton];
+    [previousButton setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.newsDetailView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[previousButton]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(previousButton)]];
+    [self.newsDetailView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[previousButton]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(previousButton)]];
+//    [self.previousButton setBackgroundColor:[UIColor blueColor]];
+
+//    [self.newsDetailView.previousButton addTarget:self action:@selector(switchToPreviousNews) forControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void)initData{
@@ -86,13 +98,21 @@
 }
 
 - (void)switchToPreviousStoryWithCurrentSection:(NSInteger)section storyID:(NSInteger)storyID {
-    
-    
+    NSLog(@"old section:%ld,old storyID:%ld",section,storyID);
+    if([self.homePageModel getPreviousNewsWithSection:&section currentID:&storyID]) {
+        self.storyID = storyID;
+        self.section = section;
+        NSLog(@"new section:%ld,new storyID:%ld",section,storyID);
+        [self initData];
+    } else {
+        NSLog(@"return false");
+    }
 }
 
 #pragma mark - SwitchNewsDelegate Method
 
-- (void)switchToPreviousNews{
+- (void)switchToPreviousNews {
+//    NSLog(@"switchToPreviousNews");
     [self switchToPreviousStoryWithCurrentSection:self.section storyID:self.storyID];
 }
 

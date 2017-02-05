@@ -21,5 +21,6 @@
 + (instancetype)sharedInstance;
 - (NSURLSessionDataTask *)getLatestStoriesWithBlock:(void (^)(HomepageModel *model, NSError *error))block;
 - (NSURLSessionDataTask *)getPreviousStoriesWithBlock:(void (^)(DailyNewsList *model, NSError*error))block andDate:(NSString *)date;
+- (BOOL)getPreviousNewsWithSection:(NSInteger *)section currentID:(NSInteger *)currentID;
 
 @end
