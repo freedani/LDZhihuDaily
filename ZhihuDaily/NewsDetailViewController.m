@@ -57,15 +57,12 @@
     [self.view addSubview:_newsDetailView];
     
     UIButton *previousButton = [[UIButton alloc] initWithFrame:CGRectNull];
-    [previousButton addTarget:self action:@selector(switchToPreviousNews) forControlEvents:UIControlEventTouchUpInside];
+    [previousButton addTarget:self action:@selector(switchToNextNews) forControlEvents:UIControlEventTouchUpInside];
     self.previousButton = previousButton;
     [self.newsDetailView.bottomBarView addSubview:self.previousButton];
     [previousButton setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.newsDetailView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[previousButton]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(previousButton)]];
     [self.newsDetailView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[previousButton]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(previousButton)]];
-//    [self.previousButton setBackgroundColor:[UIColor blueColor]];
-
-//    [self.newsDetailView.previousButton addTarget:self action:@selector(switchToPreviousNews) forControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void)initData{
@@ -94,7 +91,14 @@
 #pragma mark - Previous/Next News Switch Method
 
 - (void)switchToNextStoryWithCurrentSection:(NSInteger)section storyID:(NSInteger)storyID {
-    
+    if([self.homePageModel getNextNewsWithSection:&section currentID:&storyID]) {
+        self.storyID = storyID;
+        self.section = section;
+        NSLog(@"new section:%ld,new storyID:%ld",section,storyID);
+        [self initData];
+    } else {
+        NSLog(@"return false");
+    }
 }
 
 - (void)switchToPreviousStoryWithCurrentSection:(NSInteger)section storyID:(NSInteger)storyID {
@@ -117,7 +121,7 @@
 }
 
 - (void)switchToNextNews{
-    
+    [self switchToNextStoryWithCurrentSection:self.section storyID:self.storyID];
 }
 
 - (void)handleWebViewClickedWithURL:(NSURL *)url{

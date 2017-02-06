@@ -114,28 +114,56 @@
 
 - (BOOL)getPreviousNewsWithSection:(NSInteger *)section currentID:(NSInteger *)currentID {
     
-    DailyNewsList *model = _storiesArray[*section];
-    
-    __block NSInteger previousNews = -1;
-    
-    [model.dailyNewsList enumerateObjectsUsingBlock:^(Titles *title, NSUInteger idx, BOOL *stop){
-        if (title.titleID == *currentID) {
-            *stop = YES;
+    if (*section >= 0) {
+        DailyNewsList *model = _storiesArray[*section];
+        __block NSInteger previousNews = -1;
+        [model.dailyNewsList enumerateObjectsUsingBlock:^(Titles *title, NSUInteger idx, BOOL *stop){
+            if (title.titleID == *currentID) {
+                *stop = YES;
+            }
+            else
+                previousNews = title.titleID;
+        }];
+        if (previousNews > 0) {
+            *currentID = previousNews;
+            return true;
         }
-        else
-            previousNews = title.titleID;
-    }];
-    
-    if (previousNews > 0) {
-        *currentID = previousNews;
-        return true;
+        if (*section - 1 >= 0) {
+            previousNews = [_storiesArray[*section - 1].dailyNewsList lastObject].titleID;
+            *section -= 1;
+            *currentID = previousNews;
+            return true;
+        }
+        return false;
     }
-    
-    if (*section - 1 >= 0) {
-        previousNews = [_storiesArray[*section - 1].dailyNewsList lastObject].titleID;
-        *section -= 1;
-        *currentID = previousNews;
-        return true;
+    return false;
+}
+
+- (BOOL) getNextNewsWithSection:(NSInteger *)section currentID:(NSInteger *)currentID {
+    if (*section >= 0) {
+        DailyNewsList *model = _storiesArray[*section];
+        __block NSInteger nextNews = -1;
+        __block BOOL flag = false;
+        [model.dailyNewsList enumerateObjectsUsingBlock:^(Titles *title, NSUInteger idx, BOOL *stop){
+            if (flag) {
+                nextNews = title.titleID;
+                *stop = YES;
+            }
+            if (title.titleID == *currentID) {
+                flag = true;
+            }
+        }];
+        if (nextNews > 0) {
+            *currentID = nextNews;
+            return true;
+        }
+        
+        if ( *section + 1 < _storiesArray.count ) {
+            *currentID = [_storiesArray[*section + 1].dailyNewsList firstObject].titleID;
+            *section += 1;
+            return true;
+        }
+        return false;
     }
     return false;
 }
