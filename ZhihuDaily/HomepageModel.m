@@ -31,7 +31,6 @@
     });
     return sharedHomepageModel;
 }
-////alloc会调用allocWithZone:
 
 + (id)allocWithZone:(NSZone*)zone {
     return [self sharedInstance];

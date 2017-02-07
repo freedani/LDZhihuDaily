@@ -66,7 +66,6 @@
     [self addConstraint:[NSLayoutConstraint constraintWithItem:_imageSourceLabel attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTrailing multiplier:1 constant:-16]];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:_imageSourceLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:-8]];
     
-//    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(8.0f, 0, kScreenWidth - 8.0f, 350.0f)];
     self.titleLabel = [UILabel new];
     _titleLabel.numberOfLines = 0;
     [_titleLabel setTextColor:[UIColor whiteColor]];

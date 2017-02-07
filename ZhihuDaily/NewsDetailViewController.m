@@ -96,6 +96,9 @@
         self.section = section;
         NSLog(@"new section:%ld,new storyID:%ld",section,storyID);
         [self initData];
+        /*
+         To do:animation
+         */
     } else {
         NSLog(@"return false");
     }
@@ -108,6 +111,9 @@
         self.section = section;
         NSLog(@"new section:%ld,new storyID:%ld",section,storyID);
         [self initData];
+        /*
+         To do:animation
+         */
     } else {
         NSLog(@"return false");
     }

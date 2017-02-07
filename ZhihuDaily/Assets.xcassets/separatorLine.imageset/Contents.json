@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "separatorLine.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Image_Preview@2x.png",
+      "filename" : "separatorLine@2x.png",
       "scale" : "2x"
     },
     {

@@ -20,8 +20,7 @@
 @interface NewsDetailView : UIView
 
 @property (nonatomic, weak) id<SwitchNewsDelegate> delegate;
-@property (nonatomic, strong) UIButton *nextButton;
-@property (nonatomic, strong) UIButton *previousButton;
+
 @property (nonatomic, strong) UIView *bottomBarView;
 
 - (void)updateNewsWithModel:(NewsDetailModel *)model;
