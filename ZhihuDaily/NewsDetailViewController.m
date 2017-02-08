@@ -17,7 +17,7 @@
 
 @property (nonatomic, strong) NewsDetailView *newsDetailView;
 @property (nonatomic, weak, readonly) HomepageModel *homePageModel;
-@property (nonatomic, strong) UIButton *previousButton;
+//@property (nonatomic, strong) UIButton *previousButton;
 
 @end
 
@@ -56,13 +56,13 @@
     _newsDetailView.delegate = self;
     [self.view addSubview:_newsDetailView];
     
-    UIButton *previousButton = [[UIButton alloc] initWithFrame:CGRectNull];
-    [previousButton addTarget:self action:@selector(switchToNextNews) forControlEvents:UIControlEventTouchUpInside];
-    self.previousButton = previousButton;
-    [self.newsDetailView.bottomBarView addSubview:self.previousButton];
-    [previousButton setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self.newsDetailView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[previousButton]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(previousButton)]];
-    [self.newsDetailView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[previousButton]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(previousButton)]];
+//    UIButton *previousButton = [[UIButton alloc] initWithFrame:CGRectNull];
+//    [previousButton addTarget:self action:@selector(switchToNextNews) forControlEvents:UIControlEventTouchUpInside];
+//    self.previousButton = previousButton;
+//    [self.newsDetailView.bottomBarView addSubview:self.previousButton];
+//    [previousButton setTranslatesAutoresizingMaskIntoConstraints:NO];
+//    [self.newsDetailView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[previousButton]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(previousButton)]];
+//    [self.newsDetailView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[previousButton]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(previousButton)]];
 }
 
 -(void)initData{
@@ -92,13 +92,34 @@
 
 - (void)switchToNextStoryWithCurrentSection:(NSInteger)section storyID:(NSInteger)storyID {
     if([self.homePageModel getNextNewsWithSection:&section currentID:&storyID]) {
+        
+        NewsDetailView *newsDetailView = [[NewsDetailView alloc] initWithFrame:CGRectMake(0, kScreenHeight, kScreenWidth, kScreenHeight)];
+        
+        newsDetailView.delegate = self;
+        [self.view addSubview:newsDetailView];
+        
+        NewsDetailView *previousNewsDetailView = self.newsDetailView;
+        
+        self.newsDetailView = newsDetailView;
         self.storyID = storyID;
         self.section = section;
-        NSLog(@"new section:%ld,new storyID:%ld",section,storyID);
         [self initData];
+        
         /*
-         To do:animation
+         Add animation done.
+         Needs to make the bottombar not scroll with newsDetailView. Same as switch to previous Story. 
          */
+        
+        [UIView animateWithDuration:.5 animations:^{
+            CGRect frame = newsDetailView.frame;
+            frame.origin.y = 0;
+            newsDetailView.frame = frame;
+            frame.origin.y = -kScreenHeight;
+            previousNewsDetailView.frame = frame;
+        }completion:^(BOOL finished){
+            [previousNewsDetailView removeFromSuperview];
+        }];
+        
     } else {
         NSLog(@"return false");
     }
@@ -107,10 +128,29 @@
 - (void)switchToPreviousStoryWithCurrentSection:(NSInteger)section storyID:(NSInteger)storyID {
     NSLog(@"old section:%ld,old storyID:%ld",section,storyID);
     if([self.homePageModel getPreviousNewsWithSection:&section currentID:&storyID]) {
+        
+        NewsDetailView *newsDetailView = [[NewsDetailView alloc] initWithFrame:CGRectMake(0, -kScreenHeight, kScreenWidth, kScreenHeight)];
+        
+        newsDetailView.delegate = self;
+        [self.view addSubview:newsDetailView];
+        
+        NewsDetailView *previousNewsDetailView = self.newsDetailView;
+        
+        self.newsDetailView = newsDetailView;
         self.storyID = storyID;
         self.section = section;
-        NSLog(@"new section:%ld,new storyID:%ld",section,storyID);
         [self initData];
+        
+        [UIView animateWithDuration:.5 animations:^{
+            CGRect frame = newsDetailView.frame;
+            frame.origin.y = 0;
+            newsDetailView.frame = frame;
+            frame.origin.y = kScreenHeight / 2;
+            previousNewsDetailView.frame = frame;
+        }completion:^(BOOL finished){
+            [previousNewsDetailView removeFromSuperview];
+        }];
+        
         /*
          To do:animation
          */
@@ -126,7 +166,7 @@
     [self switchToPreviousStoryWithCurrentSection:self.section storyID:self.storyID];
 }
 
-- (void)switchToNextNews{
+- (void)switchToNextNews {
     [self switchToNextStoryWithCurrentSection:self.section storyID:self.storyID];
 }
 

@@ -68,6 +68,20 @@
     [_webView.scrollView addSubview:headerView];
     self.headerView = headerView;
     
+    UIButton *previousButtonAtBottom = [[UIButton alloc] initWithFrame:CGRectNull];
+    
+    /*
+     Here is some question with addTarget:action: .
+     In the MVC design pattern, where should I put at this fuction? V or C?
+     */
+    [previousButtonAtBottom addTarget:self.delegate action:@selector(switchToNextNews) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.bottomBarView addSubview:previousButtonAtBottom];
+    [previousButtonAtBottom setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[previousButtonAtBottom]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(previousButtonAtBottom)]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[previousButtonAtBottom]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(previousButtonAtBottom)]];
+
+    
     UIButton *previousButton = [[UIButton alloc] initWithFrame:CGRectMake(kScreenWidth/2 - 50, -20 - 15, 100, 30)];
     previousButton.enabled = false;
     [previousButton setTitle:@"载入上一篇" forState:UIControlStateNormal];
@@ -138,8 +152,6 @@
         if (scrollView.contentSize.height + 20 > self.nextButton.center.y) {
             self.nextButton.center = CGPointMake(self.nextButton.center.x, scrollView.contentSize.height + 20);
         }
-        NSLog(@"yOffset %lf",yOffset);
-        NSLog(@"scrollView.contentSize.height - kScreenHeight %lf",scrollView.contentSize.height - kScreenHeight);
         if (yOffset > scrollView.contentSize.height + 35 - kScreenHeight + 50) {
             [UIView animateWithDuration:.3 animations:^{
                 _nextButton.imageView.transform = CGAffineTransformRotate(CGAffineTransformIdentity, M_PI);
