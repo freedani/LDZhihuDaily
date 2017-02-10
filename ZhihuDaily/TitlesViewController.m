@@ -99,12 +99,6 @@
     [task resume];
 }
 
--(void) initCircleView {
-    self.circleView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0.0f, 0.0f, kScreenWidth,210.0f) delegate:self placeholderImage:[UIImage imageNamed:@"profile-image-placeholder"]];
-    [self.titleTableView addSubview:_circleView];
-    
-}
-
 -(void) initTableView {
     self.titleTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kScreenWidth,kScreenHeight) style:UITableViewStylePlain];
     [self.baseView addSubview:_titleTableView];
@@ -112,18 +106,24 @@
     [self.scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_titleTableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_titleTableView)]];
     [self.scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[_titleTableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_titleTableView)]];
     
-    self.titleTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.titleTableView.bounds), 210.0f)];
+    self.titleTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.titleTableView.bounds), topImageHeight)];
     self.titleTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.titleTableView.refreshControl = [[UIRefreshControl alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.titleTableView.frame.size.width, 100.0f)];
     [self.titleTableView.refreshControl addTarget:self action:@selector(reload:) forControlEvents:UIControlEventValueChanged];
     [self.titleTableView.tableHeaderView addSubview:self.titleTableView.refreshControl];
     
-    self.titleTableView.rowHeight = 70.0f;
+    self.titleTableView.rowHeight = 90.0f;
     self.titleTableView.delegate = self;
     self.titleTableView.dataSource = self;
     
     [self reload:nil];
+}
+
+-(void) initCircleView {
+    self.circleView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0.0f, 0.0f, kScreenWidth, topImageHeight) delegate:self placeholderImage:[UIImage imageNamed:@"profile-image-placeholder"]];
+    [self.titleTableView addSubview:_circleView];
+    
 }
 
 - (void)reload:(__unused id)sender {
@@ -134,7 +134,7 @@
             self.homepageModel.topStoriesArray = model.topStoriesArray;
             self.homepageModel.storiesArray = model.storiesArray;
             self.homepageModel.currentDate = model.currentDate;
-            //不能这么直接就把model.storiesArray赋值给self.homepageModel.storiesArray，否则在下拉刷新之后会把历史新闻给删掉，再添加缓存之后再考虑重复刷新复制的事
+            //不能这么直接就把model.storiesArray赋值给self.homepageModel.storiesArray，否则在下拉刷新之后会把历史新闻给删掉，在添加缓存之后再考虑重复刷新复制的事
 //            if (self.homepageModel == nil) {
 //                self.homepageModel.currentDate = model.currentDate;
 //            }
@@ -173,23 +173,37 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    /*
+     由于此方法调用十分频繁，cell的标示声明成静态变量有利于性能优化。
+     首先根据标识去缓存池取，
+     如果缓存池没有到则重新创建并放到缓存池中。
+     */
+    static NSString *cellIdentifier=@"UITableViewCellIdentifierKey1";
     
-    TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
     if (!cell) {
-        cell = [[TableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+//        cell = [[TableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+        cell = [[TableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        cell.textLabel.numberOfLines = 0;
     }
+    
     cell.title = self.homepageModel.storiesArray[indexPath.section].dailyNewsList[(NSUInteger)indexPath.row];
+    
+    
+    
     return cell;
 }
- 
+
 
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(__unused UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [TableViewCell heightForCellWithTitle:self.homepageModel.storiesArray[indexPath.section].dailyNewsList[(NSUInteger)indexPath.row]];
+//    return [TableViewCell heightForCellWithTitle:self.homepageModel.storiesArray[indexPath.section].dailyNewsList[(NSUInteger)indexPath.row]];
+    return 91.0;
 }
 
 - (void)tableView:(UITableView *)tableView

@@ -64,7 +64,7 @@
     self.webView = webView;
     self.bottomBarView = bottomBarView;
     
-    NewsDetailHeaderView *headerView = [[NewsDetailHeaderView alloc] initWithFrame:CGRectMake(0,0,kScreenWidth,210.0f)];
+    NewsDetailHeaderView *headerView = [[NewsDetailHeaderView alloc] initWithFrame:CGRectMake(0,0,kScreenWidth,topImageHeight)];
     [_webView.scrollView addSubview:headerView];
     self.headerView = headerView;
     
@@ -129,7 +129,7 @@
     if (yOffset <= 0) {
         CGRect f = _headerView.frame;
         f.origin.y = yOffset;
-        f.size.height = 210.0f - yOffset;
+        f.size.height = topImageHeight - yOffset;
         _headerView.frame = f;
         
         if (yOffset <= -35) {

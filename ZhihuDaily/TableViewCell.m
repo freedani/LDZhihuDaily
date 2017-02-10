@@ -21,8 +21,8 @@
         return nil;
     }
     
-    self.detailTextLabel.font = [UIFont systemFontOfSize:12.0f];
-    self.detailTextLabel.numberOfLines = 0;
+    self.textLabel.font = [UIFont systemFontOfSize:16.0f];
+    self.textLabel.numberOfLines = 2;
     self.selectionStyle = UITableViewCellSelectionStyleGray;
     
     return self;
@@ -31,17 +31,21 @@
 - (void)setTitle:(Titles *)title {
     _title = title;
     
-    self.detailTextLabel.text = _title.text;
+    self.textLabel.text = _title.text;
+    
+    /*
+     How to add cache with the Image in the tableviewcell?
+     */
     [self.imageView sd_setImageWithURL:_title.imageURL placeholderImage:[UIImage imageNamed:@"profile-image-placeholder"]];
     
 }
 
 + (CGFloat)heightForCellWithTitle:(Titles *)title {
-    return (CGFloat)fmaxf(70.0f, (float)[self detailTextHeight:title.text] + 45.0f);
+    return (CGFloat)fmaxf(90.0f, (float)[self textHeight:title.text]);
 }
 
-+ (CGFloat)detailTextHeight:(NSString *)text {
-    CGRect rectToFit = [text boundingRectWithSize:CGSizeMake(240.0f, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12.0f]} context:nil];
++ (CGFloat)textHeight:(NSString *)text {
+    CGRect rectToFit = [text boundingRectWithSize:CGSizeMake(240.0f, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16.0f]} context:nil];
     return rectToFit.size.height;
 }
 
@@ -50,13 +54,14 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    self.imageView.frame = CGRectMake(300.0f, 10.0f, 50.0f, 50.0f);
-    self.textLabel.frame = CGRectMake(20.0f, 6.0f, 240.0f, 0.0f);
+    self.imageView.frame = CGRectMake(285.0f, 15.0f, 75.0f, 60.0f);
+    self.textLabel.frame = CGRectMake(15.0f, 15.0f, 245.0f, 0.0f);
     
-    CGRect detailTextLabelFrame = CGRectOffset(self.textLabel.frame, 0.0f, 5.0f);
-    CGFloat calculatedHeight = [[self class] detailTextHeight:self.title.text];
-    detailTextLabelFrame.size.height = calculatedHeight;
-    self.detailTextLabel.frame = detailTextLabelFrame;
+    CGRect textLabelFrame = self.textLabel.frame;
+//    CGRectOffset(self.textLabel.frame, 0.0f, 0.0f);
+    CGFloat calculatedHeight = [[self class] textHeight:self.title.text];
+    textLabelFrame.size.height = calculatedHeight;
+    self.textLabel.frame = textLabelFrame;
     
 }
 
