@@ -32,10 +32,9 @@
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[navigationBarView]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(navigationBarView)]];
     
     UIView *backgroundColorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 54)];
-    [backgroundColorView setBackgroundColor:[UIColor colorWithRed:0/255.0 green:175/255.0 blue:240/255.0 alpha:1]];
+    [backgroundColorView setBackgroundColor:[UIColor colorWithRed:24/255.0 green:144/255.0 blue:211/255.0 alpha:1]];
     _backgroundColorView = backgroundColorView;
     [backgroundColorView setAlpha:0];
-    [backgroundColorView setAlpha:1];
     
     [navigationBarView addSubview:backgroundColorView];
     [backgroundColorView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -52,11 +51,11 @@
     [navigationBarView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[labelView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(labelView)]];
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    [titleLabel setFont:[UIFont systemFontOfSize:14]];
+    [titleLabel setFont:[UIFont systemFontOfSize:18]];
     [titleLabel setTextColor:[UIColor whiteColor]];
     [labelView addSubview:titleLabel];
     _titleLabel = titleLabel;
-    _titleLabel.text = @"今日要闻";
+    _titleLabel.text = @"今日热闻";
     [titleLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
     [labelView addConstraint:[NSLayoutConstraint constraintWithItem:titleLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:labelView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
     [labelView addConstraint:[NSLayoutConstraint constraintWithItem:titleLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:labelView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
