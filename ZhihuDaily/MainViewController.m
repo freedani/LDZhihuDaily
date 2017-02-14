@@ -45,7 +45,8 @@
     
     //need to place this function at the right sequence because the launch view is at the top of all views.
     [self initLaunchVC];
-    //dispatch time may be related to the network condition
+
+#warning dispatch time may be related to the network condition
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self removeLaunchVC];
     });
@@ -100,6 +101,8 @@
     [self.menuViewController beginAppearanceTransition:NO animated:animated];
     
     [self.contentButton removeFromSuperview];
+    
+#warning to avoid ircular reference, self in block needs to replace by weakSelf
     
 //    WEAK_REF(self)
     

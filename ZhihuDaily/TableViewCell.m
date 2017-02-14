@@ -20,12 +20,23 @@
     if (!self) {
         return nil;
     }
-    
+    [self initUI];
+    return self;
+}
+
+- (void) initUI {
+    self.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.textLabel.numberOfLines = 0;
     self.textLabel.font = [UIFont systemFontOfSize:16.0f];
-    self.textLabel.numberOfLines = 2;
+    self.textLabel.numberOfLines = 0;
     self.selectionStyle = UITableViewCellSelectionStyleGray;
     
-    return self;
+    UIImageView *separatorLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"separatorLine"]];
+    [self.contentView addSubview:separatorLine];
+    [separatorLine setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[separatorLine]-15-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(separatorLine)]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[separatorLine(0.5)]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(separatorLine)]];
+    
 }
 
 - (void)setTitle:(Titles *)title {
@@ -36,16 +47,15 @@
     /*
      How to add cache with the Image in the tableviewcell?
      */
-    [self.imageView sd_setImageWithURL:_title.imageURL placeholderImage:[UIImage imageNamed:@"profile-image-placeholder"]];
     
 }
 
 + (CGFloat)heightForCellWithTitle:(Titles *)title {
-    return (CGFloat)fmaxf(90.0f, (float)[self textHeight:title.text]);
+    return (CGFloat)fmaxf(94.0f, (float)[self textHeight:title.text] + 5.0f);
 }
 
 + (CGFloat)textHeight:(NSString *)text {
-    CGRect rectToFit = [text boundingRectWithSize:CGSizeMake(240.0f, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16.0f]} context:nil];
+    CGRect rectToFit = [text boundingRectWithSize:CGSizeMake(245.0f, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16.0f]} context:nil];
     return rectToFit.size.height;
 }
 
@@ -54,11 +64,10 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    self.imageView.frame = CGRectMake(285.0f, 15.0f, 75.0f, 60.0f);
-    self.textLabel.frame = CGRectMake(15.0f, 15.0f, 245.0f, 0.0f);
+    self.imageView.frame = CGRectMake(285.0f, 17.0f, 75.0f, 60.0f);
+    self.textLabel.frame = CGRectMake(17.0f, 17.0f, 245.0f, 0.0f);
     
     CGRect textLabelFrame = self.textLabel.frame;
-//    CGRectOffset(self.textLabel.frame, 0.0f, 0.0f);
     CGFloat calculatedHeight = [[self class] textHeight:self.title.text];
     textLabelFrame.size.height = calculatedHeight;
     self.textLabel.frame = textLabelFrame;

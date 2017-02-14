@@ -12,6 +12,6 @@
 #define kScreenWidth  [UIScreen mainScreen].bounds.size.width
 #define kScreenHeight [UIScreen mainScreen].bounds.size.height
 
-#define topImageHeight 220.0f
+#define topImageHeight 210.0f
 
 #endif /* CommonMacros_h */
