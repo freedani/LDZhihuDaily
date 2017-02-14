@@ -46,32 +46,16 @@
 
 - (NSString *)formatDateStringWithString:(NSString *)string {
     
-    NSDateFormatter *stringToDateFormatter = [[NSDateFormatter alloc] init];
-    [stringToDateFormatter setDateFormat:@"yyyyMMdd"];
-    NSDate *date = [stringToDateFormatter dateFromString:string];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyyMMdd"];
+    NSDate *date = [dateFormatter dateFromString:string];
     NSTimeZone *timeZone = [NSTimeZone systemTimeZone];
     NSInteger interval = [timeZone secondsFromGMTForDate: date];
     NSDate *localeDate = [date dateByAddingTimeInterval: interval];
 
-    NSString *weekday = [self weekdayStringFromDate:localeDate];
-    
-    NSDateFormatter *dateToStringFormatter = [[NSDateFormatter alloc] init];
-    [dateToStringFormatter setDateFormat:@"MM月dd日"];
-    NSString *strDate = [dateToStringFormatter stringFromDate:localeDate];
-    
-    return [strDate stringByAppendingFormat:@" %@",weekday];
-}
-
-- (NSString*)weekdayStringFromDate:(NSDate*)inputDate {
-    
-    NSArray *weekdays = [NSArray arrayWithObjects: [NSNull null], @"星期日", @"星期一", @"星期二", @"星期三", @"星期四", @"星期五", @"星期六", nil];
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    NSTimeZone *timeZone = [[NSTimeZone alloc] initWithName:@"Asia/Shanghai"];
-    [calendar setTimeZone: timeZone];
-    NSCalendarUnit calendarUnit = NSCalendarUnitWeekday;
-    NSDateComponents *theComponents = [calendar components:calendarUnit fromDate:inputDate];
-    return [weekdays objectAtIndex:theComponents.weekday];
-    
+    dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"zh-CH"];
+    [dateFormatter setDateFormat:@"MM月dd日 EEEE"];
+    return [dateFormatter stringFromDate:localeDate];
 }
 
 @end
