@@ -8,6 +8,8 @@
 
 #import "MainViewController.h"
 #import "LaunchViewController.h"
+#import "TitlesViewController.h"
+#import "MenuViewController.h"
 
 @interface MainViewController ()
 
@@ -30,10 +32,11 @@
     return self;
 }
 
-- (id) initWithContentVC:(UIViewController*) contentVC menuVC:(UIViewController*) menuVC  {
+- (id) initWithContentVC:(TitlesViewController*) contentVC menuVC:(MenuViewController*) menuVC  {
     if (self = [self init]) {
         _contentViewController = contentVC;
         _menuViewController = menuVC;
+//        contentVC.mainVC = self;
     }
     return self;
 }
@@ -91,6 +94,7 @@
     if (self.contentViewController) {
         [self addContainerConstraints:self.contentViewController container:self.contentView];
     }
+    [self.contentViewController.menuButton addTarget:self action:@selector(showMenuViewController) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)hideMenuViewController {

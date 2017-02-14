@@ -10,7 +10,7 @@
 
 @interface NavigationBar : UIView
 
-@property (nonatomic,weak) NSLayoutConstraint *backgroundHeightConstraint;
+@property (nonatomic, weak) NSLayoutConstraint *backgroundHeightConstraint;
 
 - (void)setBackgroundColorAlpha:(CGFloat)alpha;
 - (void)setTitleHidden:(BOOL)isHidden;

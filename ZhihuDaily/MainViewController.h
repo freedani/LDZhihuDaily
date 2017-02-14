@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class TitlesViewController;
+@class MenuViewController;
+
 @interface MainViewController : UIViewController <UIGestureRecognizerDelegate>
 
-@property (strong, readwrite, nonatomic) UIViewController *contentViewController;
-@property (strong, readwrite, nonatomic) UIViewController *menuViewController;
+@property (strong, readwrite, nonatomic) TitlesViewController *contentViewController;
+@property (strong, readwrite, nonatomic) MenuViewController *menuViewController;
 @property (strong, readwrite, nonatomic) UIViewController *launchViewController;
 @property (assign, readwrite, nonatomic) NSTimeInterval animationDuration;
 

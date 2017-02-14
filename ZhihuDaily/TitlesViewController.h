@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class MainViewController;
+
 @interface TitlesViewController : UIViewController
+
+@property (nonatomic, strong) UIButton *menuButton;
 
 @end
 

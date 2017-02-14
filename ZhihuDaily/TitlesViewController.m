@@ -75,11 +75,26 @@
     [self initTableView];
     [self initCircleView];
     
+    [self.baseView setUserInteractionEnabled:YES];
+    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.menuButton = leftButton;
+    [leftButton setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [_baseView addSubview:leftButton];
+    [_baseView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[leftButton]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(leftButton)]];
+    [_baseView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-25-[leftButton]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(leftButton)]];
+    [leftButton setImage:[UIImage imageNamed:@"Home_Icon"] forState:UIControlStateNormal];
+    [leftButton setImage:[UIImage imageNamed:@"Home_Icon_Highlight"] forState:UIControlStateHighlighted];
+    [leftButton addTarget:self action:@selector(hideMenuViewController) forControlEvents:UIControlEventTouchUpInside];
+    
     [self setNeedsStatusBarAppearanceUpdate];
 
 }
 
--(void) initData{
+- (void)hideMenuViewController {
+    
+}
+
+- (void)initData{
     NSURLSessionTask __unused *task = [self.homepageModel getLatestStoriesWithBlock:^(HomepageModel *model, NSError *error) {
         if (!error) {
             self.homepageModel.topStoriesArray = [NSArray arrayWithArray:model.topStoriesArray];
@@ -105,7 +120,7 @@
     [task resume];
 }
 
--(void) initTableView {
+- (void)initTableView {
     self.titleTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 20.0f, kScreenWidth,kScreenHeight - 20.0f) style:UITableViewStylePlain];
     
     self.navigationBar = [NavigationBar new];
