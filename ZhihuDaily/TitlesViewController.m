@@ -32,6 +32,8 @@
 
 @implementation TitlesViewController
 
+static const CGFloat tableViewCellHeight = 90.0f;
+
 #pragma mark - Getter Method
 
 -(HomepageModel*)homepageModel {
@@ -121,7 +123,7 @@
 }
 
 - (void)initTableView {
-    self.titleTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 20.0f, kScreenWidth,kScreenHeight - 20.0f) style:UITableViewStylePlain];
+    self.titleTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, statuBarHeight, kScreenWidth,kScreenHeight - statuBarHeight) style:UITableViewStylePlain];
     
     self.navigationBar = [NavigationBar new];
     
@@ -135,7 +137,7 @@
     [self.baseView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_titleTableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_titleTableView)]];
     [self.baseView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[_titleTableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_titleTableView)]];
     
-    self.titleTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.titleTableView.bounds), topImageHeight)];
+    self.titleTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.titleTableView.bounds), topImageHeight - statuBarHeight)];
     self.titleTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.titleTableView.refreshControl = [[UIRefreshControl alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.titleTableView.frame.size.width, 100.0f)];
@@ -145,7 +147,7 @@
     
     [self.titleTableView.tableHeaderView addSubview:self.titleTableView.refreshControl];
     
-    self.titleTableView.rowHeight = 90.0f;
+    self.titleTableView.rowHeight = tableViewCellHeight;
     self.titleTableView.delegate = self;
     self.titleTableView.dataSource = self;
     self.titleTableView.showsVerticalScrollIndicator = FALSE;
@@ -154,7 +156,7 @@
 }
 
 -(void) initCircleView {
-    self.circleView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0.0f, -20.0f, kScreenWidth, topImageHeight) delegate:self placeholderImage:[UIImage imageNamed:@"profile-image-placeholder"]];
+    self.circleView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0.0f, -statuBarHeight, kScreenWidth, topImageHeight) delegate:self placeholderImage:[UIImage imageNamed:@"profile-image-placeholder"]];
     [self.titleTableView addSubview:_circleView];
     [self.titleTableView setClipsToBounds:NO];
     
@@ -248,7 +250,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     if (section == 0) {
         return CGFLOAT_MIN;
     }
-    return 34;
+    return tableViewHeaderHeight;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -268,14 +270,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingHeaderView:(UIView *)view forSection:(NSInteger)section{
     if (section == 0) {
-        [_navigationBar.backgroundHeightConstraint setConstant:20];
+        [_navigationBar.backgroundHeightConstraint setConstant:statuBarHeight];
         [_navigationBar setTitleHidden:YES];
     }
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section{
     if (section == 0) {
-        [_navigationBar.backgroundHeightConstraint setConstant:54];
+        [_navigationBar.backgroundHeightConstraint setConstant:(statuBarHeight + tableViewHeaderHeight)];
         [_navigationBar setTitleHidden:NO];
     }
 }
@@ -288,13 +290,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     CGFloat contentYoffset = scrollView.contentOffset.y;
     
     if (contentYoffset > 0) {
-        CGFloat alpha = MIN(1, 1 - ((210 - contentYoffset) / 210));
+        CGFloat alpha = MIN(1, 1 - ((topImageHeight - contentYoffset) / topImageHeight));
         [_navigationBar setBackgroundColorAlpha:alpha];
     } else {
         [_navigationBar setBackgroundColorAlpha:0];
     }
     
-    CGFloat distanceFromBottom = scrollView.contentSize.height - contentYoffset - 90.0f;
+    CGFloat distanceFromBottom = scrollView.contentSize.height - contentYoffset - tableViewCellHeight;
     
     if (distanceFromBottom < height) {
         
