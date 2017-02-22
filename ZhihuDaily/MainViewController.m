@@ -45,14 +45,13 @@
     [super viewDidLoad];
     [self initUI];
     [self addGesture];
-    
-    //need to place this function at the right sequence because the launch view is at the top of all views.
-    [self initLaunchVC];
 
+//    [self initLaunchVC];
+//
 #warning dispatch time may be related to the network condition
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self removeLaunchVC];
-    });
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self removeLaunchVC];
+//    });
 }
 
 - (void) initLaunchVC {

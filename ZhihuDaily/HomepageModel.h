@@ -15,7 +15,7 @@
 @interface HomepageModel : NSObject
 
 @property (nonatomic, strong) NSArray<CircleViewModel *> *topStoriesArray;
-@property (nonatomic, strong) NSMutableArray<DailyNewsList*> *storiesArray;
+@property (nonatomic, strong) NSMutableArray<DailyNewsList *> *storiesArray;
 @property (nonatomic, strong) NSString *currentDate;
 
 + (instancetype)sharedInstance;

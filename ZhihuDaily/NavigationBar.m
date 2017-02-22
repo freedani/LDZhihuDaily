@@ -25,30 +25,24 @@
 }
 
 - (void) initUI {
-    UIView *navigationBarView = [UIView new];
-    [self addSubview:navigationBarView];
-    [navigationBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[navigationBarView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(navigationBarView)]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[navigationBarView]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(navigationBarView)]];
-    
     UIView *backgroundColorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, (statuBarHeight + tableViewHeaderHeight))];
     [backgroundColorView setBackgroundColor:[UIColor colorWithRed:24/255.0 green:144/255.0 blue:211/255.0 alpha:1]];
     _backgroundColorView = backgroundColorView;
     [backgroundColorView setAlpha:0];
     
-    [navigationBarView addSubview:backgroundColorView];
+    [self addSubview:backgroundColorView];
     [backgroundColorView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [navigationBarView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[backgroundColorView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(backgroundColorView)]];
-    [navigationBarView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[backgroundColorView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(backgroundColorView)]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[backgroundColorView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(backgroundColorView)]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[backgroundColorView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(backgroundColorView)]];
     
-    self.backgroundHeightConstraint = [NSLayoutConstraint constraintWithItem:navigationBarView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:(statuBarHeight + tableViewHeaderHeight)];
+    self.backgroundHeightConstraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:(statuBarHeight + tableViewHeaderHeight)];
     [self addConstraint:_backgroundHeightConstraint];
     
     UIView *labelView = [[UIView alloc] initWithFrame:CGRectMake(0, statuBarHeight, kScreenWidth, tableViewHeaderHeight)];
-    [navigationBarView addSubview:labelView];
+    [self addSubview:labelView];
     [labelView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [navigationBarView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[labelView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(labelView)]];
-    [navigationBarView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[labelView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(labelView)]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[labelView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(labelView)]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[labelView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(labelView)]];
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     [titleLabel setFont:[UIFont systemFontOfSize:18]];
