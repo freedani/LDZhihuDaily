@@ -38,8 +38,7 @@ static const CGFloat tableViewCellHeight = 90.0f;
 
 -(HomepageModel*)homepageModel {
     if (!_homepageModel) {
-        self.homepageModel = [HomepageModel new];
-        return self.homepageModel;
+        _homepageModel = [HomepageModel new];
     }
     return _homepageModel;
 }
@@ -164,8 +163,6 @@ static const CGFloat tableViewCellHeight = 90.0f;
 
 - (void)reload:(__unused id)sender {
     
-#warning needs to update the circle view
-    
     self.navigationItem.rightBarButtonItem.enabled = NO;
 
     NSURLSessionTask __unused *task = [self.homepageModel getLatestStoriesWithBlock:^(HomepageModel *model, NSError *error) {
@@ -178,6 +175,7 @@ static const CGFloat tableViewCellHeight = 90.0f;
 //            if (self.homepageModel == nil) {
 //                self.homepageModel.currentDate = model.currentDate;
 //            }
+            self.topTitles = model.topStoriesArray;
             NSMutableArray *mutableTopTitlesURL = [NSMutableArray arrayWithCapacity:[_topTitles count]];
             NSMutableArray *mutableTopTitlesStrings = [NSMutableArray arrayWithCapacity:[_topTitles count]];
             for (CircleViewModel *attributes in _topTitles) {
