@@ -27,13 +27,13 @@
 #pragma mark - Getter Method
 
 -(ThemesList*)themesList {
+    
     /*
      lazy initialization
      */
     
     if (!_themesList) {
-        self.themesList = [ThemesList new];
-        return self.themesList;
+        _themesList = [ThemesList new];
     }
     return _themesList;
 }
@@ -41,13 +41,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initUI];
-//    [self initData];
     // Do any additional setup after loading the view.
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-//    [self initUI];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -92,7 +90,7 @@
 #pragma mark - UITableViewDelegate
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    NSLog(@"select row:%ld",indexPath.row);
+
 }
 
 #pragma mark - UITableViewDatasource
@@ -131,12 +129,12 @@
         cell.textLabel.text = @"主页";
     } else {
         cell.textLabel.text = _themesList.themesListArray[indexPath.row - 1].themeName;
+        /*
+         If not set nil, cell at row 12 will reuse cell at row 1 and the cell image will become "Menu_Icon_Home"
+         */
         [cell.imageView setImage:nil];
     }
-    NSLog(@"row:%ld name:%@",indexPath.row, cell.textLabel.text);
     return cell;
 }
-
-
 
 @end
