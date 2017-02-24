@@ -27,7 +27,8 @@
 @property (nonatomic, strong) UIView *baseView;
 @property (nonatomic, strong) NavigationBar *navigationBar;
 @property (nonatomic, strong) SDCycleScrollView *circleView;
-@property (nonatomic, strong) UIPercentDrivenInteractiveTransition *interactionController;
+@property (nonatomic) BOOL isLoading;
+
 @end
 
 @implementation TitlesViewController
@@ -85,14 +86,9 @@ static const CGFloat tableViewCellHeight = 90.0f;
     [_baseView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-25-[leftButton]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(leftButton)]];
     [leftButton setImage:[UIImage imageNamed:@"Home_Icon"] forState:UIControlStateNormal];
     [leftButton setImage:[UIImage imageNamed:@"Home_Icon_Highlight"] forState:UIControlStateHighlighted];
-    [leftButton addTarget:self action:@selector(hideMenuViewController) forControlEvents:UIControlEventTouchUpInside];
     
-    [self setNeedsStatusBarAppearanceUpdate];
+//    [self setNeedsStatusBarAppearanceUpdate];
 
-}
-
-- (void)hideMenuViewController {
-    
 }
 
 - (void)initData{
@@ -139,19 +135,18 @@ static const CGFloat tableViewCellHeight = 90.0f;
     self.titleTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.titleTableView.bounds), topImageHeight - statuBarHeight)];
     self.titleTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    self.titleTableView.refreshControl = [[UIRefreshControl alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.titleTableView.frame.size.width, 100.0f)];
-    [self.titleTableView.refreshControl addTarget:self action:@selector(reload:) forControlEvents:UIControlEventValueChanged];
+//    self.titleTableView.refreshControl = [[UIRefreshControl alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.titleTableView.frame.size.width, 100.0f)];
+//    [self.titleTableView.refreshControl addTarget:self action:@selector(reload:) forControlEvents:UIControlEventValueChanged];
     
 #warning refreshControl needs to update
     
-    [self.titleTableView.tableHeaderView addSubview:self.titleTableView.refreshControl];
+//    [self.titleTableView.tableHeaderView addSubview:self.titleTableView.refreshControl];
     
     self.titleTableView.rowHeight = tableViewCellHeight;
     self.titleTableView.delegate = self;
     self.titleTableView.dataSource = self;
     self.titleTableView.showsVerticalScrollIndicator = FALSE;
     
-    [self reload:nil];
 }
 
 -(void) initCircleView {
@@ -162,8 +157,6 @@ static const CGFloat tableViewCellHeight = 90.0f;
 }
 
 - (void)reload:(__unused id)sender {
-    
-    self.navigationItem.rightBarButtonItem.enabled = NO;
 
     NSURLSessionTask __unused *task = [self.homepageModel getLatestStoriesWithBlock:^(HomepageModel *model, NSError *error) {
         if (!error) {
@@ -188,10 +181,10 @@ static const CGFloat tableViewCellHeight = 90.0f;
             _circleView.titlesGroup =titlesStrings;
             _circleView.autoScrollTimeInterval = 5.0f;
             [self.titleTableView reloadData];
+            [_navigationBar setActivityViewStop];
         }
     }];
     
-    [self.titleTableView.refreshControl setRefreshingWithStateOfTask:task];
     [task resume];
 }
 
@@ -287,11 +280,25 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     CGFloat height = scrollView.frame.size.height;
     CGFloat contentYoffset = scrollView.contentOffset.y;
     
-    if (contentYoffset > 0) {
+    if (contentYoffset < 0) {
+        if (!_isLoading) {
+            [_navigationBar setCircleHidden:NO];
+            if (contentYoffset >= -50) {
+                CGFloat progress = MIN(1 , contentYoffset / -50);
+                [_navigationBar setCircleWithProgress:progress];
+            } else {
+                CGFloat progress = 1;
+                [_navigationBar setCircleWithProgress:progress];
+            }
+        }
+        if (contentYoffset <= -100) {
+            [scrollView setContentOffset:CGPointMake(0, -100) animated:NO];
+        }
+        [_navigationBar setBackgroundColorAlpha:0];
+    } else {
+        [_navigationBar setCircleHidden:YES];
         CGFloat alpha = MIN(1, 1 - ((topImageHeight - contentYoffset) / topImageHeight));
         [_navigationBar setBackgroundColorAlpha:alpha];
-    } else {
-        [_navigationBar setBackgroundColorAlpha:0];
     }
     
     CGFloat distanceFromBottom = scrollView.contentSize.height - contentYoffset - tableViewCellHeight;
@@ -309,6 +316,21 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
         }
                                            andDate:self.homepageModel.currentDate];
     }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    CGFloat yOffset = scrollView.contentOffset.y;
+    if (yOffset <= -50) {
+        if(@selector(reload:)) {
+            [_navigationBar setActivityViewStart];
+            _isLoading = YES;
+            [self reload:nil];
+        }
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    _isLoading = NO;
 }
 
 #pragma mark - SDCycleViewDelegate

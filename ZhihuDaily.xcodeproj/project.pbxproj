@@ -25,6 +25,7 @@
 		066FEBD41D8188E10001DC72 /* AFAppDotNetAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 066FEBD31D8188E10001DC72 /* AFAppDotNetAPIClient.m */; };
 		069DE6DF1E5D4A390005E441 /* ThemesList.m in Sources */ = {isa = PBXBuildFile; fileRef = 069DE6DE1E5D4A390005E441 /* ThemesList.m */; };
 		069DE6E21E5D69B20005E441 /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 069DE6E11E5D69B20005E441 /* Theme.m */; };
+		069DE6E81E5FD46A0005E441 /* RefreshCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 069DE6E71E5FD46A0005E441 /* RefreshCircle.m */; };
 		06D649191DA3C9570009DE12 /* CircleViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D649171DA3C9570009DE12 /* CircleViewModel.m */; };
 		06D649221DA940610009DE12 /* HomepageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D649211DA940610009DE12 /* HomepageModel.m */; };
 		06D649251DB1C72A0009DE12 /* DailyNewsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D649241DB1C72A0009DE12 /* DailyNewsList.m */; };
@@ -71,6 +72,8 @@
 		069DE6DE1E5D4A390005E441 /* ThemesList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemesList.m; sourceTree = "<group>"; };
 		069DE6E01E5D69B20005E441 /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
 		069DE6E11E5D69B20005E441 /* Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Theme.m; sourceTree = "<group>"; };
+		069DE6E61E5FD46A0005E441 /* RefreshCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefreshCircle.h; sourceTree = "<group>"; };
+		069DE6E71E5FD46A0005E441 /* RefreshCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefreshCircle.m; sourceTree = "<group>"; };
 		06D649171DA3C9570009DE12 /* CircleViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleViewModel.m; sourceTree = "<group>"; };
 		06D649181DA3C9570009DE12 /* CircleViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleViewModel.h; sourceTree = "<group>"; };
 		06D649201DA940610009DE12 /* HomepageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomepageModel.h; sourceTree = "<group>"; };
@@ -208,6 +211,8 @@
 				065C7CE71E51E478009F81DE /* NavigationBar.m */,
 				06484F411E54001C0011C460 /* MenuView.h */,
 				06484F421E54001C0011C460 /* MenuView.m */,
+				069DE6E61E5FD46A0005E441 /* RefreshCircle.h */,
+				069DE6E71E5FD46A0005E441 /* RefreshCircle.m */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -390,6 +395,7 @@
 				06D649191DA3C9570009DE12 /* CircleViewModel.m in Sources */,
 				063D956C1D9419CC0096C188 /* NewsDetailView.m in Sources */,
 				06D649311DCC7C270009DE12 /* MenuViewController.m in Sources */,
+				069DE6E81E5FD46A0005E441 /* RefreshCircle.m in Sources */,
 				06D649251DB1C72A0009DE12 /* DailyNewsList.m in Sources */,
 				06D6492B1DCA2B8D0009DE12 /* MainViewController.m in Sources */,
 				065C7CE51E50944D009F81DE /* SectionView.m in Sources */,

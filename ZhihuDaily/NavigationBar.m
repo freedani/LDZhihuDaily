@@ -7,11 +7,14 @@
 //
 
 #import "NavigationBar.h"
+#import "RefreshCircle.h"
 
 @interface NavigationBar ()
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIView *backgroundColorView;
+@property (nonatomic, strong) RefreshCircle *refreshCircle;
+@property (nonatomic, strong) UIActivityIndicatorView *activityView;
 
 @end
 
@@ -53,6 +56,27 @@
     [titleLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
     [labelView addConstraint:[NSLayoutConstraint constraintWithItem:titleLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:labelView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
     [labelView addConstraint:[NSLayoutConstraint constraintWithItem:titleLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:labelView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+    
+    RefreshCircle *refreshCircle = [RefreshCircle new];
+    _refreshCircle = refreshCircle;
+    _refreshCircle.frame = CGRectMake(_refreshCircle.frame.origin.x, _refreshCircle.frame.origin.y, 20, 20);
+    [labelView addSubview:_refreshCircle];
+    [_refreshCircle setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [labelView addConstraint:[NSLayoutConstraint constraintWithItem:_refreshCircle attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:labelView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+    [labelView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_refreshCircle]-0-[_titleLabel]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_refreshCircle, _titleLabel)]];
+    NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:_refreshCircle attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0.0 constant:20];
+    [_refreshCircle addConstraint:widthConstraint];
+    NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:_refreshCircle attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0.0 constant:20];
+    [_refreshCircle addConstraint:heightConstraint];
+    
+    _activityView = [UIActivityIndicatorView new];
+    [labelView addSubview:_activityView];
+    [_activityView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [labelView addConstraint:[NSLayoutConstraint constraintWithItem:_activityView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:labelView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+    [labelView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_activityView]-0-[_titleLabel]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_activityView, _titleLabel)]];
+    _activityView.hidden = YES;
+    
+    
 }
 
 - (void)setBackgroundColorAlpha:(CGFloat)alpha {
@@ -61,6 +85,25 @@
 
 - (void)setTitleHidden:(BOOL)isHidden {
     _titleLabel.hidden = isHidden;
+}
+
+- (void)setCircleWithProgress:(CGFloat)progress {
+    [_refreshCircle setForegroundCircleViewWithProgress:progress];
+}
+
+- (void)setCircleHidden:(BOOL)isHidden {
+    _refreshCircle.hidden = isHidden;
+}
+
+- (void)setActivityViewStart {
+    _activityView.hidden = NO;
+    _refreshCircle.hidden = YES;
+    [_activityView startAnimating];
+}
+
+- (void)setActivityViewStop {
+    _activityView.hidden = YES;
+    [_activityView stopAnimating];
 }
 
 @end

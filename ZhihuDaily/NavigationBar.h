@@ -13,6 +13,10 @@
 @property (nonatomic, weak) NSLayoutConstraint *backgroundHeightConstraint;
 
 - (void)setBackgroundColorAlpha:(CGFloat)alpha;
+- (void)setCircleWithProgress:(CGFloat)progress;
+- (void)setCircleHidden:(BOOL)isHidden;
 - (void)setTitleHidden:(BOOL)isHidden;
+- (void)setActivityViewStart;
+- (void)setActivityViewStop;
 
 @end
