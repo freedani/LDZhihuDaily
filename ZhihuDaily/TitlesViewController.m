@@ -92,10 +92,15 @@ static const CGFloat tableViewCellHeight = 90.0f;
 }
 
 - (void)initData{
+#warning needs to add cache with homepageModel
+    
     NSURLSessionTask __unused *task = [self.homepageModel getLatestStoriesWithBlock:^(HomepageModel *model, NSError *error) {
         if (!error) {
             self.homepageModel.topStoriesArray = [NSArray arrayWithArray:model.topStoriesArray];
             self.homepageModel.storiesArray = [NSMutableArray arrayWithArray:model.storiesArray];
+            /*
+            不能这么直接就把model.storiesArray赋值给self.homepageModel.storiesArray，否则在下拉刷新之后会把历史新闻给删掉，在添加缓存之后再考虑重复刷新复制的事
+            */
             if (self.homepageModel.currentDate == nil) {
                 self.homepageModel.currentDate = model.currentDate;
             }
@@ -112,6 +117,7 @@ static const CGFloat tableViewCellHeight = 90.0f;
             _circleView.titlesGroup =titlesStrings;
             _circleView.autoScrollTimeInterval = 5.0f;
             [self.titleTableView reloadData];
+            [_navigationBar setActivityViewStop];
         }
     }];
     [task resume];
@@ -135,13 +141,6 @@ static const CGFloat tableViewCellHeight = 90.0f;
     self.titleTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.titleTableView.bounds), topImageHeight - statuBarHeight)];
     self.titleTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-//    self.titleTableView.refreshControl = [[UIRefreshControl alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.titleTableView.frame.size.width, 100.0f)];
-//    [self.titleTableView.refreshControl addTarget:self action:@selector(reload:) forControlEvents:UIControlEventValueChanged];
-    
-#warning refreshControl needs to update
-    
-//    [self.titleTableView.tableHeaderView addSubview:self.titleTableView.refreshControl];
-    
     self.titleTableView.rowHeight = tableViewCellHeight;
     self.titleTableView.delegate = self;
     self.titleTableView.dataSource = self;
@@ -154,38 +153,6 @@ static const CGFloat tableViewCellHeight = 90.0f;
     [self.titleTableView addSubview:_circleView];
     [self.titleTableView setClipsToBounds:NO];
     
-}
-
-- (void)reload:(__unused id)sender {
-
-    NSURLSessionTask __unused *task = [self.homepageModel getLatestStoriesWithBlock:^(HomepageModel *model, NSError *error) {
-        if (!error) {
-            self.homepageModel.topStoriesArray = model.topStoriesArray;
-            self.homepageModel.storiesArray = model.storiesArray;
-            self.homepageModel.currentDate = model.currentDate;
-#warning needs to add cache with homepageModel
-//不能这么直接就把model.storiesArray赋值给self.homepageModel.storiesArray，否则在下拉刷新之后会把历史新闻给删掉，在添加缓存之后再考虑重复刷新复制的事
-//            if (self.homepageModel == nil) {
-//                self.homepageModel.currentDate = model.currentDate;
-//            }
-            self.topTitles = model.topStoriesArray;
-            NSMutableArray *mutableTopTitlesURL = [NSMutableArray arrayWithCapacity:[_topTitles count]];
-            NSMutableArray *mutableTopTitlesStrings = [NSMutableArray arrayWithCapacity:[_topTitles count]];
-            for (CircleViewModel *attributes in _topTitles) {
-                [mutableTopTitlesURL addObject:attributes.imageURL];
-                [mutableTopTitlesStrings addObject:attributes.text];
-            }
-            NSArray *imagesURLStrings = mutableTopTitlesURL;
-            _circleView.imageURLStringsGroup = imagesURLStrings;
-            NSArray *titlesStrings = mutableTopTitlesStrings;
-            _circleView.titlesGroup =titlesStrings;
-            _circleView.autoScrollTimeInterval = 5.0f;
-            [self.titleTableView reloadData];
-            [_navigationBar setActivityViewStop];
-        }
-    }];
-    
-    [task resume];
 }
 
 #pragma mark - UITableViewDataSource
@@ -321,10 +288,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     CGFloat yOffset = scrollView.contentOffset.y;
     if (yOffset <= -50) {
-        if(@selector(reload:)) {
+        if(@selector(initData)) {
             [_navigationBar setActivityViewStart];
             _isLoading = YES;
-            [self reload:nil];
+            [self initData];
         }
     }
 }
