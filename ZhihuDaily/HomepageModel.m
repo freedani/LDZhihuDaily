@@ -40,10 +40,9 @@
 }
 
 -(instancetype)init {
-    self = [super init];
-    if (!self) {
+    if (self = [super init]) {
         _isLoading = NO;
-        self.currentDate = nil;
+        _currentDate = nil;
     }
     return self;
 }

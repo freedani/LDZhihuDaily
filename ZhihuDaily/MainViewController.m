@@ -23,12 +23,11 @@
 @implementation MainViewController
 
 - (id) init {
-    if (!self) {
-        self = [super init];
+    if (self = [super init]) {
+        _menuView = [[UIView alloc] init];
+        _contentView = [[UIView alloc] init];
+        _animationDuration = 0.35f;
     }
-    _menuView = [[UIView alloc] init];
-    _contentView = [[UIView alloc] init];
-    _animationDuration = 0.35f;
     return self;
 }
 
