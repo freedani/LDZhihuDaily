@@ -137,7 +137,7 @@ static const CGFloat tableViewCellHeight = 90.0f;
     [self.baseView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_navigationBar]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_navigationBar)]];
     
     [self.baseView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_titleTableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_titleTableView)]];
-    [self.baseView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[_titleTableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_titleTableView)]];
+    [self.baseView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_titleTableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_titleTableView)]];
     
     self.titleTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.titleTableView.bounds), topImageHeight)];
     self.titleTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -153,6 +153,9 @@ static const CGFloat tableViewCellHeight = 90.0f;
 
 -(void) initCircleView {
     self.circleView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0.0f, 0, kScreenWidth, topImageHeight) delegate:self placeholderImage:[UIImage imageNamed:@"profile-image-placeholder"]];
+    self.circleView.titleLabelBackgroundColor = [UIColor clearColor];
+//    self.circleView.titleLabelHeight = 150.0f;
+    self.circleView.titleLabelTextFont = [UIFont systemFontOfSize:20.0f];
     [self.titleTableView addSubview:_circleView];
     [self.titleTableView setClipsToBounds:YES];
     self.circleView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
@@ -254,7 +257,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     CGFloat height = scrollView.frame.size.height;
     CGFloat contentYoffset = scrollView.contentOffset.y;
     
-    if (contentYoffset < 0) {
+    if (contentYoffset <= 0) {
+        CGRect f = _circleView.frame;
+        f.origin.y = contentYoffset;
+        f.size.height = topImageHeight - contentYoffset;
+        _circleView.frame = f;
         if (!_isLoading) {
             [_navigationBar setCircleHidden:NO];
             if (contentYoffset >= -50) {
