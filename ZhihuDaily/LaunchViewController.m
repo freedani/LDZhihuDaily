@@ -31,6 +31,8 @@
     
 #warning needs to change the imageURL according to API and cache
     
+    //test with git & github
+    
     NSString *imageURLString = @"https://pic1.zhimg.com/v2-af3c66f37f9e31d7815f0b196b5865ec.jpg";
     NSURL *imageURL = [[NSURL alloc] initWithString:imageURLString];
     [self.imageView sd_setImageWithURL:imageURL placeholderImage:[UIImage imageNamed:@"launchImage"]];
