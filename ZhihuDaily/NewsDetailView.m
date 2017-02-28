@@ -132,14 +132,14 @@
         f.size.height = topImageHeight - yOffset;
         _headerView.frame = f;
         
-        if (yOffset <= -35) {
+        if (yOffset <= -65) {
             [UIView animateWithDuration:.3 animations:^{
                 _previousButton.imageView.transform = CGAffineTransformRotate(CGAffineTransformIdentity, M_PI);
                 
             }];
             
-            if (yOffset < -50) {
-                [scrollView setContentOffset:CGPointMake(0, -50) animated:NO];
+            if (yOffset < -100) {
+                [scrollView setContentOffset:CGPointMake(0, -65) animated:NO];
             }
         } else {
             [UIView animateWithDuration:.3 animations:^{
@@ -152,13 +152,13 @@
         if (scrollView.contentSize.height + 20 > self.nextButton.center.y) {
             self.nextButton.center = CGPointMake(self.nextButton.center.x, scrollView.contentSize.height + 20);
         }
-        if (yOffset > scrollView.contentSize.height + 35 - kScreenHeight + 50) {
+        if (yOffset > scrollView.contentSize.height + 65 - kScreenHeight + 100) {
             [UIView animateWithDuration:.3 animations:^{
                 _nextButton.imageView.transform = CGAffineTransformRotate(CGAffineTransformIdentity, M_PI);
             }];
             
-            if (yOffset > scrollView.contentSize.height + 50 - kScreenHeight + 50) {
-                [scrollView setContentOffset:CGPointMake(0, scrollView.contentSize.height + 50 - kScreenHeight + 50) animated:NO];
+            if (yOffset > scrollView.contentSize.height + 100 - kScreenHeight + 100) {
+                [scrollView setContentOffset:CGPointMake(0, scrollView.contentSize.height + 100 - kScreenHeight + 100) animated:NO];
             }
         } else{
             [UIView animateWithDuration:.3 animations:^{
@@ -171,12 +171,12 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     CGFloat yOffset = scrollView.contentOffset.y;
-    if (yOffset <= -35) {
+    if (yOffset <= -65) {
         if ([self.delegate respondsToSelector:@selector(switchToPreviousNews)]) {
             [self.delegate switchToPreviousNews];
         }
     }
-    if (yOffset > scrollView.contentSize.height + 35 - kScreenHeight + 50) {
+    if (yOffset > scrollView.contentSize.height + 65 - kScreenHeight + 100) {
         if ([self.delegate respondsToSelector:@selector(switchToNextNews)]) {
             [self.delegate switchToNextNews];
         }
