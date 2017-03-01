@@ -152,25 +152,12 @@ static const CGFloat tableViewCellHeight = 90.0f;
 }
 
 -(void) initCircleView {
-<<<<<<< HEAD
-    self.circleView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0.0f, 0, kScreenWidth, topImageHeight) delegate:self placeholderImage:[UIImage imageNamed:@"profile-image-placeholder"]];
-    self.circleView.titleLabelBackgroundColor = [UIColor clearColor];
-//    self.circleView.titleLabelHeight = 150.0f;
-    self.circleView.titleLabelTextFont = [UIFont systemFontOfSize:20.0f];
-    [self.titleTableView addSubview:_circleView];
-    [self.titleTableView setClipsToBounds:YES];
-    self.circleView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
-    UIImageView *coverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kScreenWidth, topImageHeight)];
-    [coverImageView setImage:[UIImage imageNamed:@"Home_Image_Mask"]];
-    coverImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [self.titleTableView addSubview:coverImageView];
-=======
+    
     self.circleView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0.0f, 0.0f, kScreenWidth, topImageHeight) delegate:self placeholderImage:[UIImage imageNamed:@"profile-image-placeholder"]];
     [self.titleTableView addSubview:_circleView];
     [self.titleTableView setClipsToBounds:NO];
     self.circleView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
-    
->>>>>>> titleCircleView
+
 }
 
 #pragma mark - UITableViewDataSource
@@ -265,11 +252,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     CGFloat height = scrollView.frame.size.height;
     CGFloat contentYoffset = scrollView.contentOffset.y;
     
-<<<<<<< HEAD
     if (contentYoffset <= 0) {
-=======
-    if (contentYoffset < 0) {
->>>>>>> titleCircleView
+        
         CGRect f = _circleView.frame;
         f.origin.y = contentYoffset;
         f.size.height = topImageHeight - contentYoffset;
