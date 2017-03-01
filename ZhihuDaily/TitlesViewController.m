@@ -81,6 +81,7 @@ static const CGFloat tableViewCellHeight = 90.0f;
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.menuButton = leftButton;
     [leftButton setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [_baseView setBackgroundColor:[UIColor colorWithRed:35/255.0 green:42/255.0 blue:50/255.0 alpha:1]];
     [_baseView addSubview:leftButton];
     [_baseView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[leftButton]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(leftButton)]];
     [_baseView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-25-[leftButton]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(leftButton)]];
@@ -124,7 +125,7 @@ static const CGFloat tableViewCellHeight = 90.0f;
 }
 
 - (void)initTableView {
-    self.titleTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, statuBarHeight, kScreenWidth,kScreenHeight - statuBarHeight) style:UITableViewStylePlain];
+    self.titleTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0, kScreenWidth,kScreenHeight) style:UITableViewStylePlain];
     
     self.navigationBar = [NavigationBar new];
     
@@ -136,9 +137,9 @@ static const CGFloat tableViewCellHeight = 90.0f;
     [self.baseView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_navigationBar]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_navigationBar)]];
     
     [self.baseView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_titleTableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_titleTableView)]];
-    [self.baseView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[_titleTableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_titleTableView)]];
+    [self.baseView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_titleTableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_titleTableView)]];
     
-    self.titleTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.titleTableView.bounds), topImageHeight - statuBarHeight)];
+    self.titleTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.titleTableView.bounds), topImageHeight)];
     self.titleTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.titleTableView.rowHeight = tableViewCellHeight;
@@ -146,13 +147,22 @@ static const CGFloat tableViewCellHeight = 90.0f;
     self.titleTableView.dataSource = self;
     self.titleTableView.showsVerticalScrollIndicator = FALSE;
     
+    [self.titleTableView setBackgroundColor:[UIColor colorWithRed:35/255.0 green:42/255.0 blue:50/255.0 alpha:1]];
+    
 }
 
 -(void) initCircleView {
-    self.circleView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0.0f, -statuBarHeight, kScreenWidth, topImageHeight) delegate:self placeholderImage:[UIImage imageNamed:@"profile-image-placeholder"]];
+    self.circleView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0.0f, 0, kScreenWidth, topImageHeight) delegate:self placeholderImage:[UIImage imageNamed:@"profile-image-placeholder"]];
+    self.circleView.titleLabelBackgroundColor = [UIColor clearColor];
+//    self.circleView.titleLabelHeight = 150.0f;
+    self.circleView.titleLabelTextFont = [UIFont systemFontOfSize:20.0f];
     [self.titleTableView addSubview:_circleView];
-    [self.titleTableView setClipsToBounds:NO];
-    
+    [self.titleTableView setClipsToBounds:YES];
+    self.circleView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
+    UIImageView *coverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kScreenWidth, topImageHeight)];
+    [coverImageView setImage:[UIImage imageNamed:@"Home_Image_Mask"]];
+    coverImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.titleTableView addSubview:coverImageView];
 }
 
 #pragma mark - UITableViewDataSource
@@ -247,7 +257,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     CGFloat height = scrollView.frame.size.height;
     CGFloat contentYoffset = scrollView.contentOffset.y;
     
-    if (contentYoffset < 0) {
+    if (contentYoffset <= 0) {
+        CGRect f = _circleView.frame;
+        f.origin.y = contentYoffset;
+        f.size.height = topImageHeight - contentYoffset;
+        _circleView.frame = f;
         if (!_isLoading) {
             [_navigationBar setCircleHidden:NO];
             if (contentYoffset >= -50) {
