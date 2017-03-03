@@ -251,7 +251,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat height = scrollView.frame.size.height;
     CGFloat contentYoffset = scrollView.contentOffset.y;
-//    NSLog(@"%f",contentYoffset);
     
     if (contentYoffset < 0) {
         
@@ -269,7 +268,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                 [_navigationBar setCircleWithProgress:progress];
             }
         }
-        if (contentYoffset <= -100) {
+        if (contentYoffset < -100) {
             [scrollView setContentOffset:CGPointMake(0, -100) animated:NO];
         }
         [_navigationBar setBackgroundColorAlpha:0];

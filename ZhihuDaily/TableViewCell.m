@@ -33,9 +33,11 @@
     
     UIImageView *separatorLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"separatorLine"]];
     [self.contentView addSubview:separatorLine];
+    [self.contentView setBackgroundColor:[UIColor whiteColor]];
     [separatorLine setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[separatorLine]-15-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(separatorLine)]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[separatorLine(0.5)]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(separatorLine)]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[separatorLine(1)]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(separatorLine)]];
+    separatorLine.opaque = YES;
     
 }
 
@@ -71,7 +73,6 @@
      To make green when Color Blended Layers
      */
     self.textLabel.clipsToBounds = YES;
-    self.contentView.backgroundColor = [UIColor whiteColor];
     self.textLabel.backgroundColor = self.contentView.backgroundColor;
     
 }
