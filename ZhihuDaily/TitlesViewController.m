@@ -125,7 +125,7 @@ static const CGFloat tableViewCellHeight = 90.0f;
 }
 
 - (void)initTableView {
-    self.titleTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0, kScreenWidth,kScreenHeight) style:UITableViewStylePlain];
+    self.titleTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, statuBarHeight, kScreenWidth,kScreenHeight - statuBarHeight) style:UITableViewStylePlain];
     
     self.navigationBar = [NavigationBar new];
     
@@ -137,9 +137,9 @@ static const CGFloat tableViewCellHeight = 90.0f;
     [self.baseView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_navigationBar]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_navigationBar)]];
     
     [self.baseView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_titleTableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_titleTableView)]];
-    [self.baseView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_titleTableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_titleTableView)]];
+    [self.baseView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[_titleTableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_titleTableView)]];
     
-    self.titleTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.titleTableView.bounds), topImageHeight)];
+    self.titleTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.titleTableView.bounds), topImageHeight - statuBarHeight)];
     self.titleTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.titleTableView.rowHeight = tableViewCellHeight;
@@ -153,7 +153,7 @@ static const CGFloat tableViewCellHeight = 90.0f;
 
 -(void) initCircleView {
     
-    self.circleView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0.0f, 0.0f, kScreenWidth, topImageHeight) delegate:self placeholderImage:[UIImage imageNamed:@"profile-image-placeholder"]];
+    self.circleView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0.0f, -statuBarHeight, kScreenWidth, topImageHeight) delegate:self placeholderImage:[UIImage imageNamed:@"profile-image-placeholder"]];
     [self.titleTableView addSubview:_circleView];
     [self.titleTableView setClipsToBounds:NO];
     self.circleView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
@@ -251,11 +251,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat height = scrollView.frame.size.height;
     CGFloat contentYoffset = scrollView.contentOffset.y;
+    NSLog(@"%f",contentYoffset);
     
-    if (contentYoffset <= 0) {
+    if (contentYoffset < 0) {
         
         CGRect f = _circleView.frame;
-        f.origin.y = contentYoffset;
+        f.origin.y = contentYoffset - statuBarHeight;
         f.size.height = topImageHeight - contentYoffset;
         _circleView.frame = f;
         if (!_isLoading) {
