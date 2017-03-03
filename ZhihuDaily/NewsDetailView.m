@@ -139,7 +139,7 @@
             }];
             
             if (yOffset < -100) {
-                [scrollView setContentOffset:CGPointMake(0, -65) animated:NO];
+                [scrollView setContentOffset:CGPointMake(0, -100) animated:NO];
             }
         } else {
             [UIView animateWithDuration:.3 animations:^{

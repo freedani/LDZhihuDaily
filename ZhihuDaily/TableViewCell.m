@@ -42,12 +42,6 @@
 - (void)setTitle:(Titles *)title {
     _title = title;
     
-    self.textLabel.text = _title.text;
-    
-    /*
-     How to add cache with the Image in the tableviewcell?
-     */
-    
 }
 
 + (CGFloat)heightForCellWithTitle:(Titles *)title {
@@ -66,11 +60,19 @@
     
     self.imageView.frame = CGRectMake(285.0f, 17.0f, 75.0f, 60.0f);
     self.textLabel.frame = CGRectMake(17.0f, 17.0f, 245.0f, 0.0f);
+    self.textLabel.text = _title.text;
     
     CGRect textLabelFrame = self.textLabel.frame;
     CGFloat calculatedHeight = [[self class] textHeight:self.title.text];
     textLabelFrame.size.height = calculatedHeight;
     self.textLabel.frame = textLabelFrame;
+    
+    /*
+     To make green when Color Blended Layers
+     */
+    self.textLabel.clipsToBounds = YES;
+    self.contentView.backgroundColor = [UIColor whiteColor];
+    self.textLabel.backgroundColor = self.contentView.backgroundColor;
     
 }
 

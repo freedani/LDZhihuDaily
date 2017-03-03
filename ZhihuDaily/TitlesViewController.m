@@ -251,7 +251,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat height = scrollView.frame.size.height;
     CGFloat contentYoffset = scrollView.contentOffset.y;
-    NSLog(@"%f",contentYoffset);
+//    NSLog(@"%f",contentYoffset);
     
     if (contentYoffset < 0) {
         
