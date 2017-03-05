@@ -45,7 +45,6 @@
     UIWebView *webView = [[UIWebView alloc]init];
     webView.backgroundColor = [UIColor clearColor];
     webView.scrollView.delegate = self;
-    webView.delegate = self;
     
     UIView *bottomBarView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BottomBar"]];
     bottomBarView.userInteractionEnabled = YES;
