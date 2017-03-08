@@ -118,7 +118,24 @@ static const CGFloat tableViewCellHeight = 90.0f;
             _circleView.titlesGroup =titlesStrings;
             _circleView.autoScrollTimeInterval = 5.0f;
             [self.titleTableView reloadData];
-            [_navigationBar setActivityViewStop];
+            
+            /*
+             Add this to make _isLoading = NO after activityView disappear.
+             */
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [_navigationBar setActivityViewStop];
+                _isLoading = NO;
+            });
+            
+        } else {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [_navigationBar setActivityViewStop];
+                _isLoading = NO;
+                
+                /*
+                 needs to add an alert window.
+                 */
+            });
         }
     }];
     [task resume];
@@ -304,10 +321,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
             [self initData];
         }
     }
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    _isLoading = NO;
+    
+    /*
+     add this to force scroll to origin position.
+     */
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [scrollView setContentOffset:CGPointMake(0.0f, 0.0f) animated:YES];
+    });
 }
 
 #pragma mark - SDCycleViewDelegate
