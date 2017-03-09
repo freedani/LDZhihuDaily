@@ -13,6 +13,8 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 #import "CommonMacros.h"
 #import <FMDB/FMDB.h>
+#import <AFNetworking/AFNetworking.h>
+#import <SDWebImage/SDWebImageManager.h>
 
 
 #endif /* ZhihuDaily_pch */
