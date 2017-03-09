@@ -151,9 +151,6 @@
             [previousNewsDetailView removeFromSuperview];
         }];
         
-        /*
-         To do:animation
-         */
     } else {
         NSLog(@"return false");
     }

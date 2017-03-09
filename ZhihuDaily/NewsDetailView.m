@@ -81,22 +81,22 @@
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[previousButtonAtBottom]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(previousButtonAtBottom)]];
 
     
-    UIButton *previousButton = [[UIButton alloc] initWithFrame:CGRectMake(kScreenWidth/2 - 50, -20 - 15, 100, 30)];
+    UIButton *previousButton = [[UIButton alloc] initWithFrame:CGRectMake(kScreenWidth/2 - 50, -20 - 50, 100, 30)];
     previousButton.enabled = false;
-    [previousButton setTitle:@"载入上一篇" forState:UIControlStateNormal];
+    [previousButton setTitle:@" 载入上一篇" forState:UIControlStateNormal];
     [previousButton setImage:[UIImage imageNamed:@"ZHAnswerViewBack"] forState:UIControlStateNormal];
-    [previousButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    previousButton.titleLabel.font = [UIFont systemFontOfSize:12];
+    [previousButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    previousButton.titleLabel.font = [UIFont systemFontOfSize:14];
     self.previousButton = previousButton;
     [self.webView.scrollView addSubview:previousButton];
     
     UIButton *nextButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
     nextButton.center = CGPointMake(kScreenWidth/2, kScreenHeight + 20);
     nextButton.enabled = false;
-    [nextButton setTitle:@"载入下一篇" forState:UIControlStateNormal];
+    [nextButton setTitle:@" 载入下一篇" forState:UIControlStateNormal];
     [nextButton setImage:[UIImage imageNamed:@"ZHAnswerViewPrevIcon"] forState:UIControlStateNormal];
-    [nextButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    nextButton.titleLabel.font = [UIFont systemFontOfSize:12];
+    [nextButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    nextButton.titleLabel.font = [UIFont systemFontOfSize:14];
     self.nextButton = nextButton;
     [self.webView.scrollView addSubview:nextButton];
 }
@@ -131,7 +131,7 @@
         f.size.height = topImageHeight - yOffset;
         _headerView.frame = f;
         
-        if (yOffset <= -65) {
+        if (yOffset <= -70) {
             [UIView animateWithDuration:.3 animations:^{
                 _previousButton.imageView.transform = CGAffineTransformRotate(CGAffineTransformIdentity, M_PI);
                 
@@ -151,14 +151,11 @@
         if (scrollView.contentSize.height + 20 > self.nextButton.center.y) {
             self.nextButton.center = CGPointMake(self.nextButton.center.x, scrollView.contentSize.height + 20);
         }
-        if (yOffset > scrollView.contentSize.height + 65 - kScreenHeight + 100) {
+        if (yOffset > scrollView.contentSize.height - kScreenHeight + 100) {
             [UIView animateWithDuration:.3 animations:^{
                 _nextButton.imageView.transform = CGAffineTransformRotate(CGAffineTransformIdentity, M_PI);
             }];
             
-            if (yOffset > scrollView.contentSize.height + 100 - kScreenHeight + 100) {
-                [scrollView setContentOffset:CGPointMake(0, scrollView.contentSize.height + 100 - kScreenHeight + 100) animated:NO];
-            }
         } else{
             [UIView animateWithDuration:.3 animations:^{
                 _nextButton.imageView.transform = CGAffineTransformIdentity;
@@ -170,12 +167,12 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     CGFloat yOffset = scrollView.contentOffset.y;
-    if (yOffset <= -65) {
+    if (yOffset <= -70) {
         if ([self.delegate respondsToSelector:@selector(switchToPreviousNews)]) {
             [self.delegate switchToPreviousNews];
         }
     }
-    if (yOffset > scrollView.contentSize.height + 65 - kScreenHeight + 100) {
+    if (yOffset > scrollView.contentSize.height - kScreenHeight + 100) {
         if ([self.delegate respondsToSelector:@selector(switchToNextNews)]) {
             [self.delegate switchToNextNews];
         }

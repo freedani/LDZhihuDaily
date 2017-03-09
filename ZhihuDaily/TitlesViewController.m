@@ -277,8 +277,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
         _circleView.frame = f;
         if (!_isLoading) {
             [_navigationBar setCircleHidden:NO];
-            if (contentYoffset >= -65) {
-                CGFloat progress = MIN(1 , contentYoffset / -65);
+            if (contentYoffset >= -70) {
+                CGFloat progress = MIN(1 , contentYoffset / -70);
                 [_navigationBar setCircleWithProgress:progress];
             } else {
                 CGFloat progress = 1;
@@ -314,20 +314,19 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     CGFloat yOffset = scrollView.contentOffset.y;
-    if (yOffset <= -50) {
+    if (yOffset <= -70) {
         if(@selector(initData)) {
             [_navigationBar setActivityViewStart];
             _isLoading = YES;
             [self initData];
         }
+        /*
+         add this to force scroll to origin position.
+         */
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [scrollView setContentOffset:CGPointMake(0.0f, 0.0f) animated:YES];
+        });
     }
-    
-    /*
-     add this to force scroll to origin position.
-     */
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [scrollView setContentOffset:CGPointMake(0.0f, 0.0f) animated:YES];
-    });
 }
 
 #pragma mark - SDCycleViewDelegate
