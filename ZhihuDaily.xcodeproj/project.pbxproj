@@ -31,6 +31,7 @@
 		06D649251DB1C72A0009DE12 /* DailyNewsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D649241DB1C72A0009DE12 /* DailyNewsList.m */; };
 		06D6492B1DCA2B8D0009DE12 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D6492A1DCA2B8D0009DE12 /* MainViewController.m */; };
 		06D649311DCC7C270009DE12 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D649301DCC7C270009DE12 /* MenuViewController.m */; };
+		06F53D991E7255E2003C611C /* NewsDetailBottomBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 06F53D981E7255E2003C611C /* NewsDetailBottomBarView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +85,8 @@
 		06D6492A1DCA2B8D0009DE12 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		06D6492F1DCC7C270009DE12 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		06D649301DCC7C270009DE12 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
+		06F53D971E7255E2003C611C /* NewsDetailBottomBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsDetailBottomBarView.h; sourceTree = "<group>"; };
+		06F53D981E7255E2003C611C /* NewsDetailBottomBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsDetailBottomBarView.m; sourceTree = "<group>"; };
 		86622607AD0C131D30F2ACFA /* Pods-ZhihuDaily.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhihuDaily.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZhihuDaily/Pods-ZhihuDaily.debug.xcconfig"; sourceTree = "<group>"; };
 		DB9B1D832102BC1F37789BFA /* Pods-ZhihuDaily.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhihuDaily.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZhihuDaily/Pods-ZhihuDaily.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -153,6 +156,8 @@
 				063D956B1D9419CC0096C188 /* NewsDetailView.m */,
 				0605AA181DA0F5B700AD814D /* NewsDetailHeaderView.h */,
 				0605AA191DA0F5B700AD814D /* NewsDetailHeaderView.m */,
+				06F53D971E7255E2003C611C /* NewsDetailBottomBarView.h */,
+				06F53D981E7255E2003C611C /* NewsDetailBottomBarView.m */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -390,6 +395,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				06094EE11DFAA91F0020FE18 /* SQLiteManager.m in Sources */,
+				06F53D991E7255E2003C611C /* NewsDetailBottomBarView.m in Sources */,
 				066FEBCD1D8051B80001DC72 /* Titles.m in Sources */,
 				066FEBB41D804E8A0001DC72 /* TitlesViewController.m in Sources */,
 				06D649191DA3C9570009DE12 /* CircleViewModel.m in Sources */,

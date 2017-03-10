@@ -13,15 +13,18 @@
 
 - (void)switchToPreviousNews;
 - (void)switchToNextNews;
+- (void)popViewController;
 - (void)handleWebViewClickedWithURL:(NSURL *)url;
 
 @end
+
+@class NewsDetailBottomBarView;
 
 @interface NewsDetailView : UIView
 
 @property (nonatomic, weak) id<SwitchNewsDelegate> delegate;
 
-@property (nonatomic, strong) UIView *bottomBarView;
+@property (nonatomic, strong) NewsDetailBottomBarView *bottomBarView;
 
 - (void)updateNewsWithModel:(NewsDetailModel *)model;
 - (void)setContentOffset:(CGPoint)point animated:(BOOL)animated;

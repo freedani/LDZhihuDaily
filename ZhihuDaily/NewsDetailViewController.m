@@ -167,6 +167,11 @@
     [self switchToNextStoryWithCurrentSection:self.section storyID:self.storyID];
 }
 
+- (void)popViewController {
+    NSLog(@"%s", __FUNCTION__);
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)handleWebViewClickedWithURL:(NSURL *)url{
     
 }

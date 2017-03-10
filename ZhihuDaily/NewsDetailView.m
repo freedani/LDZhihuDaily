@@ -9,6 +9,7 @@
 #import "NewsDetailView.h"
 #import "NewsDetailHeaderView.h"
 #import "NewsDetailViewController.h"
+#import "NewsDetailBottomBarView.h"
 #import <WebKit/WebKit.h>
 
 
@@ -52,7 +53,8 @@
     [self addSubview:wkWebView];
     self.wkWebView = wkWebView;
     
-    UIView *bottomBarView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BottomBar"]];
+    NewsDetailBottomBarView *bottomBarView = [[NewsDetailBottomBarView alloc] initWithFrame:CGRectMake(0, kScreenHeight - 50, kScreenWidth, 50)];
+//    [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BottomBar"]];
     bottomBarView.userInteractionEnabled = YES;
     
     [self addSubview:bottomBarView];
@@ -71,19 +73,15 @@
     [wkWebView.scrollView addSubview:headerView];
     self.headerView = headerView;
     
-    UIButton *previousButtonAtBottom = [[UIButton alloc] initWithFrame:CGRectNull];
-    
     /*
      Here is some question with addTarget:action: .
      In the MVC design pattern, where should I put at this fuction? V or C?
      */
-    [previousButtonAtBottom addTarget:self.delegate action:@selector(switchToNextNews) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.bottomBarView addSubview:previousButtonAtBottom];
-    [previousButtonAtBottom setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[previousButtonAtBottom]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(previousButtonAtBottom)]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[previousButtonAtBottom]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(previousButtonAtBottom)]];
-
+    [self.bottomBarView.backButton addTarget:self.delegate action:@selector(popViewController) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomBarView.nextButton addTarget:self.delegate action:@selector(switchToNextNews) forControlEvents:UIControlEventTouchUpInside];
+//    [self.bottomBarView.nextButton addTarget:self.delegate action:@selector(switchToNextNews) forControlEvents:UIControlEventTouchUpInside];
+//    [self.bottomBarView.nextButton addTarget:self.delegate action:@selector(switchToNextNews) forControlEvents:UIControlEventTouchUpInside];
+//    [self.bottomBarView.nextButton addTarget:self.delegate action:@selector(switchToNextNews) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *previousButton = [[UIButton alloc] initWithFrame:CGRectMake(kScreenWidth/2 - 50, -20 - 50, 100, 30)];
     previousButton.enabled = false;
