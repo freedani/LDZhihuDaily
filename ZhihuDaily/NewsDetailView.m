@@ -9,11 +9,13 @@
 #import "NewsDetailView.h"
 #import "NewsDetailHeaderView.h"
 #import "NewsDetailViewController.h"
+#import <WebKit/WebKit.h>
 
 
-@interface NewsDetailView () <UIScrollViewDelegate, UIWebViewDelegate>
+@interface NewsDetailView () <UIScrollViewDelegate, WKUIDelegate, WKNavigationDelegate,WKScriptMessageHandler>
 
 @property (nonatomic, strong) UIWebView *webView;
+@property (nonatomic, strong) WKWebView *wkWebView;
 @property (nonatomic, strong) NewsDetailHeaderView *headerView;
 @property (nonatomic, strong) NewsDetailModel *newsModel;
 
@@ -42,29 +44,31 @@
 
 -(void)initUI{
     
-    UIWebView *webView = [[UIWebView alloc]init];
-    webView.backgroundColor = [UIColor clearColor];
-    webView.scrollView.delegate = self;
+    WKWebViewConfiguration *theConfiguration = [[WKWebViewConfiguration alloc] init];
+    WKWebView *wkWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) configuration:theConfiguration];
+    wkWebView.scrollView.delegate = self;
+    wkWebView.navigationDelegate = self;
+    wkWebView.UIDelegate = self;
+    [self addSubview:wkWebView];
+    self.wkWebView = wkWebView;
     
     UIView *bottomBarView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BottomBar"]];
     bottomBarView.userInteractionEnabled = YES;
     
-    [self addSubview:webView];
     [self addSubview:bottomBarView];
     
     [bottomBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [webView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [wkWebView setTranslatesAutoresizingMaskIntoConstraints:NO];
     
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[webView]-0-[bottomBarView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(webView,bottomBarView)]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[wkWebView]-0-[bottomBarView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(wkWebView,bottomBarView)]];
     
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[bottomBarView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(bottomBarView)]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[webView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(webView)]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[wkWebView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(wkWebView)]];
     
-    self.webView = webView;
     self.bottomBarView = bottomBarView;
     
     NewsDetailHeaderView *headerView = [[NewsDetailHeaderView alloc] initWithFrame:CGRectMake(0,0,kScreenWidth,topImageHeight)];
-    [_webView.scrollView addSubview:headerView];
+    [wkWebView.scrollView addSubview:headerView];
     self.headerView = headerView;
     
     UIButton *previousButtonAtBottom = [[UIButton alloc] initWithFrame:CGRectNull];
@@ -88,7 +92,7 @@
     [previousButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     previousButton.titleLabel.font = [UIFont systemFontOfSize:14];
     self.previousButton = previousButton;
-    [self.webView.scrollView addSubview:previousButton];
+    [self.wkWebView.scrollView addSubview:previousButton];
     
     UIButton *nextButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
     nextButton.center = CGPointMake(kScreenWidth/2, kScreenHeight + 20);
@@ -98,13 +102,8 @@
     [nextButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     nextButton.titleLabel.font = [UIFont systemFontOfSize:14];
     self.nextButton = nextButton;
-    [self.webView.scrollView addSubview:nextButton];
+    [self.wkWebView.scrollView addSubview:nextButton];
 }
-
-- (void)switchToPreviousNews {
-    NSLog(@"view switchToPreviousNews");
-}
-
 
 #pragma mark - DataSource Method
 - (void)updateNewsWithModel:(NewsDetailModel *)model{
@@ -113,12 +112,13 @@
     }
     
     self.newsModel = model;
-    [_webView loadHTMLString:[NSString stringWithFormat:@"<html><head><link rel=\"stylesheet\" href=%@></head><body>%@</body></html>",[model.css firstObject],model.body] baseURL:nil];
+    [_wkWebView loadHTMLString:[NSString stringWithFormat:@"<html><head><meta name='viewport' content='initial-scale=1.0,user-scalable=no' /><link type='text/css'  rel=\"stylesheet\" href=%@></head><body>%@</body></html>",[model.css firstObject],model.body] baseURL:nil];
     [_headerView updateNewsWithModel:model];
+    
 }
 
 - (void)setContentOffset:(CGPoint)point animated:(BOOL)animated {
-    [_webView.scrollView setContentOffset:point animated:animated];
+    [_wkWebView.scrollView setContentOffset:point animated:animated];
 }
 
 #pragma mark - Scrollview Delegate Method
@@ -182,9 +182,18 @@
 
 #pragma mark - UIWebViewDelegate Method
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    
+- (BOOL)webView:(WKWebView *)webView shouldStartLoadWithRequest:(nonnull NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     return YES;
 }
 
+#pragma mark - WKNavigationDelegate Method
+
+#pragma mark - WKUIDelegate Method
+
+#pragma mark - WKScriptMessageHandler
+
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message
+{
+    
+}
 @end

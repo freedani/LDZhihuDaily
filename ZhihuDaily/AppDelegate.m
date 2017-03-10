@@ -53,10 +53,6 @@
      check the network condition and the setting
      */
     
-//    if (mobileNetworkDidNotDownload == true && network condition != WLAN) {
-//      return false;
-//    }
-    
     if ([self reachabilityStatusReachableViaWWAN]) {
         /*
          be care about what happen if reachability or setting change
