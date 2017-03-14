@@ -15,9 +15,7 @@
 #import "DailyNewsList.h"
 #import "SectionView.h"
 #import "NavigationBar.h"
-#import <AFNetworking/AFNetworking.h>
 #import <SDCycleScrollView/SDCycleScrollView.h>
-#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface TitlesViewController () <UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UINavigationControllerDelegate,UIGestureRecognizerDelegate>
 @property (nonatomic, strong) HomepageModel *homepageModel;

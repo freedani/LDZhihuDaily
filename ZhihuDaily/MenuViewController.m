@@ -8,7 +8,7 @@
 
 #import "MenuViewController.h"
 #import "SQLiteManager.h"
-#import <SDWebImage/SDImageCache.h>
+//#import <SDWebImage/SDImageCache.h>
 #import "MenuView.h"
 #import "ThemesList.h"
 #import "Theme.h"

@@ -7,8 +7,6 @@
 //
 
 #import "NewsDetailHeaderView.h"
-#import <AFNetworking/AFNetworking.h>
-
 
 @interface NewsDetailHeaderView()
 

@@ -7,8 +7,6 @@
 //
 
 #import "LaunchViewController.h"
-#import <SDWebImage/UIImageView+WebCache.h>
-#import <AFNetworking/AFNetworking.h>
 
 @interface LaunchViewController ()
 
