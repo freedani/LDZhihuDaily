@@ -7,4 +7,3 @@ target 'ZhihuDaily' do
     pod 'SDCycleScrollView', '~> 1.65'
     pod 'FMDB'
 end
-

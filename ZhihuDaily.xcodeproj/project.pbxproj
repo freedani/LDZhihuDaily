@@ -33,6 +33,7 @@
 		06D6492B1DCA2B8D0009DE12 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D6492A1DCA2B8D0009DE12 /* MainViewController.m */; };
 		06D649311DCC7C270009DE12 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D649301DCC7C270009DE12 /* MenuViewController.m */; };
 		06F53D991E7255E2003C611C /* NewsDetailBottomBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 06F53D981E7255E2003C611C /* NewsDetailBottomBarView.m */; };
+		5E1127418AFF3FD140FEDB2D /* libPods-ZhihuDaily.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CD064B3740D6D1C9AD8573C /* libPods-ZhihuDaily.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +91,7 @@
 		06D649301DCC7C270009DE12 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		06F53D971E7255E2003C611C /* NewsDetailBottomBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsDetailBottomBarView.h; sourceTree = "<group>"; };
 		06F53D981E7255E2003C611C /* NewsDetailBottomBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsDetailBottomBarView.m; sourceTree = "<group>"; };
+		1CD064B3740D6D1C9AD8573C /* libPods-ZhihuDaily.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZhihuDaily.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		86622607AD0C131D30F2ACFA /* Pods-ZhihuDaily.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhihuDaily.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZhihuDaily/Pods-ZhihuDaily.debug.xcconfig"; sourceTree = "<group>"; };
 		DB9B1D832102BC1F37789BFA /* Pods-ZhihuDaily.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhihuDaily.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZhihuDaily/Pods-ZhihuDaily.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E1127418AFF3FD140FEDB2D /* libPods-ZhihuDaily.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,6 +177,7 @@
 				066FEBAB1D804E8A0001DC72 /* ZhihuDaily */,
 				066FEBAA1D804E8A0001DC72 /* Products */,
 				984F8C209A1DBED7696697C8 /* Pods */,
+				5977853BEDFCBB8A7F6E4D77 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -268,6 +272,14 @@
 				066FEBD31D8188E10001DC72 /* AFAppDotNetAPIClient.m */,
 			);
 			name = networkExtension;
+			sourceTree = "<group>";
+		};
+		5977853BEDFCBB8A7F6E4D77 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1CD064B3740D6D1C9AD8573C /* libPods-ZhihuDaily.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		984F8C209A1DBED7696697C8 /* Pods */ = {
