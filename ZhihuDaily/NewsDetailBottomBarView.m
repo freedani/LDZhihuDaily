@@ -36,26 +36,26 @@
     self.backButton = backButton;
     
     UIButton *nextButton = [[UIButton alloc] init];
-    [nextButton setImage:[UIImage imageNamed:@"News_Navigation_Arrow"] forState:UIControlStateNormal];
-    [nextButton setImage:[UIImage imageNamed:@"News_Navigation_Arrow_Highlight"] forState:UIControlStateHighlighted];
+    [nextButton setImage:[UIImage imageNamed:@"News_Navigation_Next"] forState:UIControlStateNormal];
+    [nextButton setImage:[UIImage imageNamed:@"News_Navigation_Next_Highlight"] forState:UIControlStateHighlighted];
     [self addSubview:nextButton];
     self.nextButton = nextButton;
     
     UIButton *likeButton = [[UIButton alloc] init];
-    [likeButton setImage:[UIImage imageNamed:@"News_Navigation_Arrow"] forState:UIControlStateNormal];
-    [likeButton setImage:[UIImage imageNamed:@"News_Navigation_Arrow_Highlight"] forState:UIControlStateHighlighted];
+    [likeButton setImage:[UIImage imageNamed:@"News_Navigation_Vote"] forState:UIControlStateNormal];
+    [likeButton setImage:[UIImage imageNamed:@"News_Navigation_Voted"] forState:UIControlStateHighlighted];
     [self addSubview:likeButton];
     self.likeButton = likeButton;
     
     UIButton *shareButton = [[UIButton alloc] init];
-    [shareButton setImage:[UIImage imageNamed:@"News_Navigation_Arrow"] forState:UIControlStateNormal];
-    [shareButton setImage:[UIImage imageNamed:@"News_Navigation_Arrow_Highlight"] forState:UIControlStateHighlighted];
+    [shareButton setImage:[UIImage imageNamed:@"News_Navigation_Share"] forState:UIControlStateNormal];
+    [shareButton setImage:[UIImage imageNamed:@"News_Navigation_Share_Highlight"] forState:UIControlStateHighlighted];
     [self addSubview:shareButton];
     self.shareButton = shareButton;
     
     UIButton *commentButton = [[UIButton alloc] init];
-    [commentButton setImage:[UIImage imageNamed:@"News_Navigation_Arrow"] forState:UIControlStateNormal];
-    [commentButton setImage:[UIImage imageNamed:@"News_Navigation_Arrow_Highlight"] forState:UIControlStateHighlighted];
+    [commentButton setImage:[UIImage imageNamed:@"News_Navigation_Comment"] forState:UIControlStateNormal];
+    [commentButton setImage:[UIImage imageNamed:@"News_Navigation_Comment_Highlight"] forState:UIControlStateHighlighted];
     [self addSubview:commentButton];
     self.commentButton = commentButton;
     
@@ -71,7 +71,6 @@
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[likeButton]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(likeButton)]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[shareButton]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(shareButton)]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[commentButton]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(commentButton)]];
-    
     
 }
 

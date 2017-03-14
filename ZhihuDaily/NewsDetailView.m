@@ -11,14 +11,15 @@
 #import "NewsDetailViewController.h"
 #import "NewsDetailBottomBarView.h"
 #import <WebKit/WebKit.h>
+#import "LDImageBrowserView.h"
 
 
 @interface NewsDetailView () <UIScrollViewDelegate, WKUIDelegate, WKNavigationDelegate,WKScriptMessageHandler>
 
-@property (nonatomic, strong) UIWebView *webView;
-@property (nonatomic, strong) WKWebView *wkWebView;
+@property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) NewsDetailHeaderView *headerView;
 @property (nonatomic, strong) NewsDetailModel *newsModel;
+@property (nonatomic, strong) LDImageBrowserView *imageBrowserView;
 
 /*
  Need to define what is next and what is previous.
@@ -38,7 +39,6 @@
     if (self = [super initWithFrame:frame]) {
         [self initUI];
     }
-    
     return self;
 }
 
@@ -51,11 +51,15 @@
     wkWebView.navigationDelegate = self;
     wkWebView.UIDelegate = self;
     [self addSubview:wkWebView];
-    self.wkWebView = wkWebView;
+    self.webView = wkWebView;
     
     NewsDetailBottomBarView *bottomBarView = [[NewsDetailBottomBarView alloc] initWithFrame:CGRectMake(0, kScreenHeight - 50, kScreenWidth, 50)];
-//    [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BottomBar"]];
     bottomBarView.userInteractionEnabled = YES;
+    
+    bottomBarView.layer.shadowColor = [UIColor grayColor].CGColor;
+    bottomBarView.layer.shadowOffset = CGSizeMake(0,-0.5);
+    bottomBarView.layer.shadowOpacity = 0.2;
+    bottomBarView.layer.shadowRadius = 0.5;
     
     [self addSubview:bottomBarView];
     
@@ -74,14 +78,14 @@
     self.headerView = headerView;
     
     /*
-     Here is some question with addTarget:action: .
+     Here is some question with addTarget:action:.
      In the MVC design pattern, where should I put at this fuction? V or C?
      */
     [self.bottomBarView.backButton addTarget:self.delegate action:@selector(popViewController) forControlEvents:UIControlEventTouchUpInside];
     [self.bottomBarView.nextButton addTarget:self.delegate action:@selector(switchToNextNews) forControlEvents:UIControlEventTouchUpInside];
-//    [self.bottomBarView.nextButton addTarget:self.delegate action:@selector(switchToNextNews) forControlEvents:UIControlEventTouchUpInside];
-//    [self.bottomBarView.nextButton addTarget:self.delegate action:@selector(switchToNextNews) forControlEvents:UIControlEventTouchUpInside];
-//    [self.bottomBarView.nextButton addTarget:self.delegate action:@selector(switchToNextNews) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomBarView.likeButton addTarget:self.delegate action:@selector(likeNews) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomBarView.shareButton addTarget:self.delegate action:@selector(shareNews) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomBarView.commentButton addTarget:self.delegate action:@selector(commentNews) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *previousButton = [[UIButton alloc] initWithFrame:CGRectMake(kScreenWidth/2 - 50, -20 - 50, 100, 30)];
     previousButton.enabled = false;
@@ -90,7 +94,7 @@
     [previousButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     previousButton.titleLabel.font = [UIFont systemFontOfSize:14];
     self.previousButton = previousButton;
-    [self.wkWebView.scrollView addSubview:previousButton];
+    [self.webView.scrollView addSubview:previousButton];
     
     UIButton *nextButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
     nextButton.center = CGPointMake(kScreenWidth/2, kScreenHeight + 20);
@@ -100,7 +104,11 @@
     [nextButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     nextButton.titleLabel.font = [UIFont systemFontOfSize:14];
     self.nextButton = nextButton;
-    [self.wkWebView.scrollView addSubview:nextButton];
+    [self.webView.scrollView addSubview:nextButton];
+    
+    self.imageBrowserView = [[LDImageBrowserView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+    self.imageBrowserView.hidden = YES;
+    [self addSubview:self.imageBrowserView];
 }
 
 #pragma mark - DataSource Method
@@ -110,13 +118,13 @@
     }
     
     self.newsModel = model;
-    [_wkWebView loadHTMLString:[NSString stringWithFormat:@"<html><head><meta name='viewport' content='initial-scale=1.0,user-scalable=no' /><link type='text/css'  rel=\"stylesheet\" href=%@></head><body>%@</body></html>",[model.css firstObject],model.body] baseURL:nil];
+    [_webView loadHTMLString:[NSString stringWithFormat:@"<html><head><meta name='viewport' content='initial-scale=1.0,user-scalable=no' /><link type='text/css'  rel=\"stylesheet\" href=%@></head><body>%@</body></html>",[model.css firstObject],model.body] baseURL:nil];
     [_headerView updateNewsWithModel:model];
     
 }
 
 - (void)setContentOffset:(CGPoint)point animated:(BOOL)animated {
-    [_wkWebView.scrollView setContentOffset:point animated:animated];
+    [_webView.scrollView setContentOffset:point animated:animated];
 }
 
 #pragma mark - Scrollview Delegate Method
@@ -178,13 +186,66 @@
     
 }
 
-#pragma mark - UIWebViewDelegate Method
+#pragma mark - JavaScript
 
-- (BOOL)webView:(WKWebView *)webView shouldStartLoadWithRequest:(nonnull NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    return YES;
+- (void)addJavaScript {
+    NSString *clickImage =
+    @"function setImage(){\
+    var imgs = document.getElementsByTagName(\"img\");\
+    for (var i=0;i<imgs.length;i++){\
+    imgs[i].setAttribute(\"onclick\",\"imageClick(\"+i+\")\");\
+    }\
+    }\
+    function imageClick(i){\
+    var rect = getImageRect(i);\
+    var url=\"clickimage::\"+i+\"::\"+rect;\
+    document.location = url;\
+    }\
+    function getImageRect(i){\
+    var imgs = document.getElementsByTagName(\"img\");\
+    var rect;\
+    rect = imgs[i].getBoundingClientRect().left+\"::\";\
+    rect = rect+imgs[i].getBoundingClientRect().top+\"::\";\
+    rect = rect+imgs[i].width+\"::\";\
+    rect = rect+imgs[i].height;\
+    return rect;\
+    }\
+    function getAllImageUrl(){\
+    var imgs = document.getElementsByTagName(\"img\");\
+    var urlArray = [];\
+    for (var i=0;i<imgs.length;i++){\
+    var src = imgs[i].src;\
+    urlArray.push(src);\
+    }\
+    return urlArray.toString();\
+    }\
+    ";
+    [_webView evaluateJavaScript:clickImage completionHandler:nil];
 }
 
 #pragma mark - WKNavigationDelegate Method
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
+    [self addJavaScript];
+    [webView evaluateJavaScript:@"setImage();" completionHandler:nil];
+}
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(nonnull WKNavigationAction *)navigationAction decisionHandler:(nonnull void (^)(WKNavigationActionPolicy))decisionHandler{
+    NSString *requestString = [[navigationAction.request URL] absoluteString];
+    NSArray *components = [requestString componentsSeparatedByString:@"::"];
+    if ([components[0] isEqualToString:@"clickimage"]) {
+        int imgIndex = [components[1] intValue];
+        [_webView evaluateJavaScript:@"getAllImageUrl();" completionHandler:^(id urls, NSError *error){
+            NSString *imageUrl = [[urls componentsSeparatedByString:@","] objectAtIndex:imgIndex];
+            [self.imageBrowserView showImageBrowser:imageUrl];
+        }];
+        decisionHandler(WKNavigationActionPolicyCancel);
+    } else {
+        decisionHandler(WKNavigationActionPolicyAllow);
+    }
+    return;
+    
+}
 
 #pragma mark - WKUIDelegate Method
 

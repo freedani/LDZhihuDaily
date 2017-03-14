@@ -17,7 +17,6 @@
 
 @property (nonatomic, strong) NewsDetailView *newsDetailView;
 @property (nonatomic, weak, readonly) HomepageModel *homePageModel;
-//@property (nonatomic, strong) UIButton *previousButton;
 
 @end
 
@@ -56,13 +55,6 @@
     _newsDetailView.delegate = self;
     [self.view addSubview:_newsDetailView];
     
-//    UIButton *previousButton = [[UIButton alloc] initWithFrame:CGRectNull];
-//    [previousButton addTarget:self action:@selector(switchToNextNews) forControlEvents:UIControlEventTouchUpInside];
-//    self.previousButton = previousButton;
-//    [self.newsDetailView.bottomBarView addSubview:self.previousButton];
-//    [previousButton setTranslatesAutoresizingMaskIntoConstraints:NO];
-//    [self.newsDetailView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[previousButton]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(previousButton)]];
-//    [self.newsDetailView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[previousButton]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(previousButton)]];
 }
 
 -(void)initData{
@@ -168,8 +160,19 @@
 }
 
 - (void)popViewController {
-    NSLog(@"%s", __FUNCTION__);
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)likeNews{
+    NSLog(@"%s", __FUNCTION__);
+}
+
+- (void)shareNews{
+    NSLog(@"%s", __FUNCTION__);
+}
+
+- (void)commentNews{
+    NSLog(@"%s", __FUNCTION__);
 }
 
 - (void)handleWebViewClickedWithURL:(NSURL *)url{

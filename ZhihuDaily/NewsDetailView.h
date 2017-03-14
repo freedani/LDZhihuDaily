@@ -14,6 +14,9 @@
 - (void)switchToPreviousNews;
 - (void)switchToNextNews;
 - (void)popViewController;
+- (void)likeNews;
+- (void)shareNews;
+- (void)commentNews;
 - (void)handleWebViewClickedWithURL:(NSURL *)url;
 
 @end
