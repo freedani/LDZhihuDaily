@@ -172,6 +172,9 @@ static const CGFloat tableViewCellHeight = 90.0f;
     [self.titleTableView addSubview:_circleView];
     [self.titleTableView setClipsToBounds:NO];
     self.circleView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
+    self.circleView.titleLabelBackgroundColor = [UIColor clearColor];
+    self.circleView.titleLabelTextFont = [UIFont systemFontOfSize:22.0f];
+    self.circleView.titleLabelHeight = 60.0f;
 
 }
 

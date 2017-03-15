@@ -43,6 +43,7 @@
 {
     if (self = [super initWithFrame:frame]) {
         [self setupImageView];
+        [self setupCoverView];
         [self setupTitleLabel];
     }
     
@@ -74,18 +75,31 @@
     [self.contentView addSubview:imageView];
 }
 
+- (void)setupCoverView
+{
+    UIImageView *coverImageView = [UIImageView new];
+    coverImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [coverImageView setImage:[UIImage imageNamed:@"Home_Image_Mask"]];
+    [self.contentView addSubview:coverImageView];
+    [coverImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[coverImageView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(coverImageView)]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[coverImageView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(coverImageView)]];
+}
+
 - (void)setupTitleLabel
 {
     UILabel *titleLabel = [[UILabel alloc] init];
     _titleLabel = titleLabel;
     _titleLabel.hidden = YES;
     [self.contentView addSubview:titleLabel];
+    _titleLabel.numberOfLines = 0;
+    [_titleLabel sizeToFit];
 }
 
 - (void)setTitle:(NSString *)title
 {
     _title = [title copy];
-    _titleLabel.text = [NSString stringWithFormat:@"   %@", title];
+    _titleLabel.text = [NSString stringWithFormat:@"%@", title];
     if (_titleLabel.hidden) {
         _titleLabel.hidden = NO;
     }
@@ -100,10 +114,10 @@
         _titleLabel.frame = self.bounds;
     } else {
         _imageView.frame = self.bounds;
-        CGFloat titleLabelW = self.sd_width;
+        CGFloat titleLabelW = self.sd_width - 34.0f;
         CGFloat titleLabelH = _titleLabelHeight;
-        CGFloat titleLabelX = 0;
-        CGFloat titleLabelY = self.sd_height - titleLabelH;
+        CGFloat titleLabelX = 17.0f;
+        CGFloat titleLabelY = self.sd_height - titleLabelH - 22.0f;
         _titleLabel.frame = CGRectMake(titleLabelX, titleLabelY, titleLabelW, titleLabelH);
     }
 }

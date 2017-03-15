@@ -31,6 +31,7 @@
 		069734A51E7946FC0067B24B /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0697349A1E7946FB0067B24B /* TADotView.m */; };
 		069734A61E7946FC0067B24B /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0697349C1E7946FB0067B24B /* TAPageControl.m */; };
 		069734A71E7946FC0067B24B /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 069734A01E7946FC0067B24B /* UIView+SDExtension.m */; };
+		069734AA1E7989BB0067B24B /* UIImageView+LDWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 069734A91E7989BA0067B24B /* UIImageView+LDWebCache.m */; };
 		069DE6DF1E5D4A390005E441 /* ThemesList.m in Sources */ = {isa = PBXBuildFile; fileRef = 069DE6DE1E5D4A390005E441 /* ThemesList.m */; };
 		069DE6E21E5D69B20005E441 /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 069DE6E11E5D69B20005E441 /* Theme.m */; };
 		069DE6E81E5FD46A0005E441 /* RefreshCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 069DE6E71E5FD46A0005E441 /* RefreshCircle.m */; };
@@ -94,6 +95,8 @@
 		0697349E1E7946FC0067B24B /* SDCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDCycleScrollView.h; path = SDCycleScrollView/SDCycleScrollView/Lib/SDCycleScrollView/SDCycleScrollView.h; sourceTree = "<group>"; };
 		0697349F1E7946FC0067B24B /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+SDExtension.h"; path = "SDCycleScrollView/SDCycleScrollView/Lib/SDCycleScrollView/UIView+SDExtension.h"; sourceTree = "<group>"; };
 		069734A01E7946FC0067B24B /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+SDExtension.m"; path = "SDCycleScrollView/SDCycleScrollView/Lib/SDCycleScrollView/UIView+SDExtension.m"; sourceTree = "<group>"; };
+		069734A81E7989BA0067B24B /* UIImageView+LDWebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+LDWebCache.h"; sourceTree = "<group>"; };
+		069734A91E7989BA0067B24B /* UIImageView+LDWebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+LDWebCache.m"; sourceTree = "<group>"; };
 		069DE6DD1E5D4A390005E441 /* ThemesList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemesList.h; sourceTree = "<group>"; };
 		069DE6DE1E5D4A390005E441 /* ThemesList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemesList.m; sourceTree = "<group>"; };
 		069DE6E01E5D69B20005E441 /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
@@ -232,6 +235,8 @@
 				066FEBAD1D804E8A0001DC72 /* main.m */,
 				063D95701D9DFDF30096C188 /* ZhihuDaily.pch */,
 				063D95711D9DFE620096C188 /* CommonMacros.h */,
+				069734A81E7989BA0067B24B /* UIImageView+LDWebCache.h */,
+				069734A91E7989BA0067B24B /* UIImageView+LDWebCache.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -455,6 +460,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				06094EE11DFAA91F0020FE18 /* SQLiteManager.m in Sources */,
+				069734AA1E7989BB0067B24B /* UIImageView+LDWebCache.m in Sources */,
 				06F53D991E7255E2003C611C /* NewsDetailBottomBarView.m in Sources */,
 				066FEBCD1D8051B80001DC72 /* Titles.m in Sources */,
 				066FEBB41D804E8A0001DC72 /* TitlesViewController.m in Sources */,
