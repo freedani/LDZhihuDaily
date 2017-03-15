@@ -11,7 +11,7 @@
 @interface Theme : NSObject
 
 @property (nonatomic, assign) NSInteger themeID;
-@property (nonatomic, strong) NSString *themeName;
+@property (nonatomic, copy) NSString *themeName;
 
 - (instancetype)initWithAttributes:(NSDictionary *)attributes;
 

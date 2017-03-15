@@ -11,7 +11,7 @@
 @interface CircleViewModel : NSObject
 
 @property (nonatomic, assign) NSUInteger titleID;
-@property(strong, nonatomic) NSString *text;
+@property(nonatomic, copy) NSString *text;
 @property (readonly, nonatomic, unsafe_unretained) NSURL *imageURL;
 
 - (instancetype)initWithAttributes:(NSDictionary *)attributes;

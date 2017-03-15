@@ -12,6 +12,6 @@
 @interface DailyNewsList : NSObject
 
 @property (nonatomic, strong) NSArray<Titles*> *dailyNewsList;
-@property (nonatomic, strong) NSString *date;
+@property (nonatomic, copy) NSString *date;
 
 @end

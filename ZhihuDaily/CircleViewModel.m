@@ -11,7 +11,7 @@
 
 @interface CircleViewModel()
 
-@property (readwrite, nonatomic, copy) NSString *imageURLString;
+@property (nonatomic, copy) NSString *imageURLString;
 
 @end
 

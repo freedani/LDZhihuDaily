@@ -16,7 +16,7 @@
 
 @property (nonatomic, strong) NSArray<CircleViewModel *> *topStoriesArray;
 @property (nonatomic, strong) NSMutableArray<DailyNewsList *> *storiesArray;
-@property (nonatomic, strong) NSString *currentDate;
+@property (nonatomic, copy) NSString *currentDate;
 
 + (instancetype)sharedInstance;
 - (NSURLSessionDataTask *)getLatestStoriesWithBlock:(void (^)(HomepageModel *model, NSError *error))block;
