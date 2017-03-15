@@ -24,7 +24,7 @@
 @property (nonatomic, strong) UITableView *titleTableView;
 @property (nonatomic, strong) UIView *baseView;
 @property (nonatomic, strong) NavigationBar *navigationBar;
-@property (nonatomic, strong) SDCycleScrollView *circleView;
+//@property (nonatomic, strong) SDCycleScrollView *circleView;
 @property (nonatomic) BOOL isLoading;
 
 @end
@@ -111,10 +111,10 @@ static const CGFloat tableViewCellHeight = 90.0f;
                 [mutableTopTitlesStrings addObject:attributes.text];
             }
             NSArray *imagesURLStrings = mutableTopTitlesURL;
-            _circleView.imageURLStringsGroup = imagesURLStrings;
+//            _circleView.imageURLStringsGroup = imagesURLStrings;
             NSArray *titlesStrings = mutableTopTitlesStrings;
-            _circleView.titlesGroup =titlesStrings;
-            _circleView.autoScrollTimeInterval = 5.0f;
+//            _circleView.titlesGroup =titlesStrings;
+//            _circleView.autoScrollTimeInterval = 5.0f;
             [self.titleTableView reloadData];
             
             /*
@@ -168,10 +168,10 @@ static const CGFloat tableViewCellHeight = 90.0f;
 
 -(void) initCircleView {
     
-    self.circleView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0.0f, -statuBarHeight, kScreenWidth, topImageHeight) delegate:self placeholderImage:[UIImage imageNamed:@"profile-image-placeholder"]];
-    [self.titleTableView addSubview:_circleView];
+//    self.circleView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0.0f, -statuBarHeight, kScreenWidth, topImageHeight) delegate:self placeholderImage:[UIImage imageNamed:@"profile-image-placeholder"]];
+//    [self.titleTableView addSubview:_circleView];
     [self.titleTableView setClipsToBounds:NO];
-    self.circleView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
+//    self.circleView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
 
 }
 
@@ -269,10 +269,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     
     if (contentYoffset < 0) {
         
-        CGRect f = _circleView.frame;
-        f.origin.y = contentYoffset - statuBarHeight;
-        f.size.height = topImageHeight - contentYoffset;
-        _circleView.frame = f;
+//        CGRect f = _circleView.frame;
+//        f.origin.y = contentYoffset - statuBarHeight;
+//        f.size.height = topImageHeight - contentYoffset;
+//        _circleView.frame = f;
         if (!_isLoading) {
             [_navigationBar setCircleHidden:NO];
             if (contentYoffset >= -70) {
@@ -284,7 +284,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
             }
         }
         if (contentYoffset < -100) {
-            [scrollView setContentOffset:CGPointMake(0, -100) animated:NO];
+            scrollView.contentOffset = CGPointMake(0, -100);
         }
         [_navigationBar setBackgroundColorAlpha:0];
     } else {
@@ -323,6 +323,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
          */
         dispatch_async(dispatch_get_main_queue(), ^{
             [scrollView setContentOffset:CGPointMake(0.0f, 0.0f) animated:YES];
+            NSLog(@"%s",__func__);
         });
     }
 }
