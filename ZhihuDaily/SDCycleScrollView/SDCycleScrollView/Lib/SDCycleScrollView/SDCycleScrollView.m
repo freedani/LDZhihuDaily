@@ -69,6 +69,7 @@ NSString * const ID = @"cycleCell";
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
     [self initialization];
     [self setupMainView];
 }
@@ -451,7 +452,7 @@ NSString * const ID = @"cycleCell";
 
 + (void)clearImagesCache
 {
-    [[[SDWebImageManager sharedManager] imageCache] clearDisk];
+    [[[SDWebImageManager sharedManager] imageCache] clearDiskOnCompletion:nil];
 }
 
 #pragma mark - life circles

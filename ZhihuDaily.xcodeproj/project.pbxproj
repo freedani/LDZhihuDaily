@@ -24,6 +24,13 @@
 		066FEBD01D80E72C0001DC72 /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 066FEBCF1D80E72C0001DC72 /* TableViewCell.m */; };
 		066FEBD41D8188E10001DC72 /* AFAppDotNetAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 066FEBD31D8188E10001DC72 /* AFAppDotNetAPIClient.m */; };
 		069734911E781E160067B24B /* LDImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 069734901E781E160067B24B /* LDImageBrowserView.m */; };
+		069734A11E7946FC0067B24B /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 069734931E7946FB0067B24B /* SDCollectionViewCell.m */; };
+		069734A21E7946FC0067B24B /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 069734941E7946FB0067B24B /* SDCycleScrollView.m */; };
+		069734A31E7946FC0067B24B /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 069734961E7946FB0067B24B /* TAAbstractDotView.m */; };
+		069734A41E7946FC0067B24B /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 069734981E7946FB0067B24B /* TAAnimatedDotView.m */; };
+		069734A51E7946FC0067B24B /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0697349A1E7946FB0067B24B /* TADotView.m */; };
+		069734A61E7946FC0067B24B /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0697349C1E7946FB0067B24B /* TAPageControl.m */; };
+		069734A71E7946FC0067B24B /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 069734A01E7946FC0067B24B /* UIView+SDExtension.m */; };
 		069DE6DF1E5D4A390005E441 /* ThemesList.m in Sources */ = {isa = PBXBuildFile; fileRef = 069DE6DE1E5D4A390005E441 /* ThemesList.m */; };
 		069DE6E21E5D69B20005E441 /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 069DE6E11E5D69B20005E441 /* Theme.m */; };
 		069DE6E81E5FD46A0005E441 /* RefreshCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 069DE6E71E5FD46A0005E441 /* RefreshCircle.m */; };
@@ -73,6 +80,20 @@
 		066FEBD31D8188E10001DC72 /* AFAppDotNetAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFAppDotNetAPIClient.m; sourceTree = "<group>"; };
 		0697348F1E781E160067B24B /* LDImageBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDImageBrowserView.h; sourceTree = "<group>"; };
 		069734901E781E160067B24B /* LDImageBrowserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDImageBrowserView.m; sourceTree = "<group>"; };
+		069734931E7946FB0067B24B /* SDCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SDCollectionViewCell.m; path = SDCycleScrollView/SDCycleScrollView/Lib/SDCycleScrollView/SDCollectionViewCell.m; sourceTree = "<group>"; };
+		069734941E7946FB0067B24B /* SDCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SDCycleScrollView.m; path = SDCycleScrollView/SDCycleScrollView/Lib/SDCycleScrollView/SDCycleScrollView.m; sourceTree = "<group>"; };
+		069734951E7946FB0067B24B /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAAbstractDotView.h; path = SDCycleScrollView/SDCycleScrollView/Lib/SDCycleScrollView/PageControl/TAAbstractDotView.h; sourceTree = "<group>"; };
+		069734961E7946FB0067B24B /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAAbstractDotView.m; path = SDCycleScrollView/SDCycleScrollView/Lib/SDCycleScrollView/PageControl/TAAbstractDotView.m; sourceTree = "<group>"; };
+		069734971E7946FB0067B24B /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAAnimatedDotView.h; path = SDCycleScrollView/SDCycleScrollView/Lib/SDCycleScrollView/PageControl/TAAnimatedDotView.h; sourceTree = "<group>"; };
+		069734981E7946FB0067B24B /* TAAnimatedDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAAnimatedDotView.m; path = SDCycleScrollView/SDCycleScrollView/Lib/SDCycleScrollView/PageControl/TAAnimatedDotView.m; sourceTree = "<group>"; };
+		069734991E7946FB0067B24B /* TADotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TADotView.h; path = SDCycleScrollView/SDCycleScrollView/Lib/SDCycleScrollView/PageControl/TADotView.h; sourceTree = "<group>"; };
+		0697349A1E7946FB0067B24B /* TADotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TADotView.m; path = SDCycleScrollView/SDCycleScrollView/Lib/SDCycleScrollView/PageControl/TADotView.m; sourceTree = "<group>"; };
+		0697349B1E7946FB0067B24B /* TAPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAPageControl.h; path = SDCycleScrollView/SDCycleScrollView/Lib/SDCycleScrollView/PageControl/TAPageControl.h; sourceTree = "<group>"; };
+		0697349C1E7946FB0067B24B /* TAPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAPageControl.m; path = SDCycleScrollView/SDCycleScrollView/Lib/SDCycleScrollView/PageControl/TAPageControl.m; sourceTree = "<group>"; };
+		0697349D1E7946FC0067B24B /* SDCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDCollectionViewCell.h; path = SDCycleScrollView/SDCycleScrollView/Lib/SDCycleScrollView/SDCollectionViewCell.h; sourceTree = "<group>"; };
+		0697349E1E7946FC0067B24B /* SDCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDCycleScrollView.h; path = SDCycleScrollView/SDCycleScrollView/Lib/SDCycleScrollView/SDCycleScrollView.h; sourceTree = "<group>"; };
+		0697349F1E7946FC0067B24B /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+SDExtension.h"; path = "SDCycleScrollView/SDCycleScrollView/Lib/SDCycleScrollView/UIView+SDExtension.h"; sourceTree = "<group>"; };
+		069734A01E7946FC0067B24B /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+SDExtension.m"; path = "SDCycleScrollView/SDCycleScrollView/Lib/SDCycleScrollView/UIView+SDExtension.m"; sourceTree = "<group>"; };
 		069DE6DD1E5D4A390005E441 /* ThemesList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemesList.h; sourceTree = "<group>"; };
 		069DE6DE1E5D4A390005E441 /* ThemesList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemesList.m; sourceTree = "<group>"; };
 		069DE6E01E5D69B20005E441 /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
@@ -195,6 +216,7 @@
 				066FEBAF1D804E8A0001DC72 /* AppDelegate.h */,
 				066FEBB01D804E8A0001DC72 /* AppDelegate.m */,
 				063D95661D94197F0096C188 /* newsDetail */,
+				069734921E7946AE0067B24B /* SDCycleView */,
 				063D95651D9419380096C188 /* homepage */,
 				06094EDE1DFAA8D90020FE18 /* SQLiteManager */,
 				066FEBD11D8188CF0001DC72 /* networkExtension */,
@@ -272,6 +294,27 @@
 				066FEBD31D8188E10001DC72 /* AFAppDotNetAPIClient.m */,
 			);
 			name = networkExtension;
+			sourceTree = "<group>";
+		};
+		069734921E7946AE0067B24B /* SDCycleView */ = {
+			isa = PBXGroup;
+			children = (
+				069734931E7946FB0067B24B /* SDCollectionViewCell.m */,
+				069734941E7946FB0067B24B /* SDCycleScrollView.m */,
+				069734951E7946FB0067B24B /* TAAbstractDotView.h */,
+				069734961E7946FB0067B24B /* TAAbstractDotView.m */,
+				069734971E7946FB0067B24B /* TAAnimatedDotView.h */,
+				069734981E7946FB0067B24B /* TAAnimatedDotView.m */,
+				069734991E7946FB0067B24B /* TADotView.h */,
+				0697349A1E7946FB0067B24B /* TADotView.m */,
+				0697349B1E7946FB0067B24B /* TAPageControl.h */,
+				0697349C1E7946FB0067B24B /* TAPageControl.m */,
+				0697349D1E7946FC0067B24B /* SDCollectionViewCell.h */,
+				0697349E1E7946FC0067B24B /* SDCycleScrollView.h */,
+				0697349F1E7946FC0067B24B /* UIView+SDExtension.h */,
+				069734A01E7946FC0067B24B /* UIView+SDExtension.m */,
+			);
+			name = SDCycleView;
 			sourceTree = "<group>";
 		};
 		5977853BEDFCBB8A7F6E4D77 /* Frameworks */ = {
@@ -418,24 +461,31 @@
 				06D649191DA3C9570009DE12 /* CircleViewModel.m in Sources */,
 				063D956C1D9419CC0096C188 /* NewsDetailView.m in Sources */,
 				06D649311DCC7C270009DE12 /* MenuViewController.m in Sources */,
+				069734A71E7946FC0067B24B /* UIView+SDExtension.m in Sources */,
 				069DE6E81E5FD46A0005E441 /* RefreshCircle.m in Sources */,
 				06D649251DB1C72A0009DE12 /* DailyNewsList.m in Sources */,
 				06D6492B1DCA2B8D0009DE12 /* MainViewController.m in Sources */,
 				065C7CE51E50944D009F81DE /* SectionView.m in Sources */,
 				06484F431E54001C0011C460 /* MenuView.m in Sources */,
 				065C7CE81E51E478009F81DE /* NavigationBar.m in Sources */,
+				069734A21E7946FC0067B24B /* SDCycleScrollView.m in Sources */,
+				069734A61E7946FC0067B24B /* TAPageControl.m in Sources */,
 				066FEBB11D804E8A0001DC72 /* AppDelegate.m in Sources */,
 				069DE6DF1E5D4A390005E441 /* ThemesList.m in Sources */,
 				06D649221DA940610009DE12 /* HomepageModel.m in Sources */,
+				069734A31E7946FC0067B24B /* TAAbstractDotView.m in Sources */,
 				063D956F1D9419E60096C188 /* NewsDetailViewController.m in Sources */,
+				069734A51E7946FC0067B24B /* TADotView.m in Sources */,
 				069DE6E21E5D69B20005E441 /* Theme.m in Sources */,
 				066FEBD01D80E72C0001DC72 /* TableViewCell.m in Sources */,
+				069734A11E7946FC0067B24B /* SDCollectionViewCell.m in Sources */,
 				066302B81DE3287C005DDD10 /* LaunchViewController.m in Sources */,
 				066FEBD41D8188E10001DC72 /* AFAppDotNetAPIClient.m in Sources */,
 				0605AA1A1DA0F5B700AD814D /* NewsDetailHeaderView.m in Sources */,
 				063D95741D9F63DA0096C188 /* NewsDetailModel.m in Sources */,
 				066FEBAE1D804E8A0001DC72 /* main.m in Sources */,
 				069734911E781E160067B24B /* LDImageBrowserView.m in Sources */,
+				069734A41E7946FC0067B24B /* TAAnimatedDotView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
