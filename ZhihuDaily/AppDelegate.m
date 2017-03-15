@@ -47,21 +47,22 @@
 
 #pragma mark SDWebImageManagerDelegate
 
-- (BOOL)imageManager:(SDWebImageManager *)imageManager shouldDownloadImageForURL:(NSURL *)imageURL {
-    
-    /*
-     check the network condition and the setting
-     */
-    
-    if ([self reachabilityStatusReachableViaWWAN]) {
-        /*
-         be care about what happen if reachability or setting change
-         */
-        return false;
-    }
-    
-    return true;
-}
+//- (BOOL)imageManager:(SDWebImageManager *)imageManager shouldDownloadImageForURL:(NSURL *)imageURL {
+//    
+//    /*
+//     check the network condition and the setting
+//     */
+//    
+//    if ([self reachabilityStatusReachableViaWWAN]) {
+//        /*
+//         be care about what happen if reachability or setting change
+//         */
+////        return false;
+//        return true;
+//    }
+//    
+//    return true;
+//}
 
 - (BOOL)reachabilityStatusReachableViaWWAN {
 //    switch([AFNetworkReachabilityManager sharedManager].networkReachabilityStatus) {
