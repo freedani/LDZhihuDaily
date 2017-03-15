@@ -76,7 +76,7 @@
 
 -(void)updateNewsWithModel:(NewsDetailModel *)model {
     
-    [_titleImageView setImageWithURL:[NSURL URLWithString:model.image]];
+    [_titleImageView sd_setImageWithURL:[NSURL URLWithString:model.image]];
     _titleLabel.text = model.title;
     _imageSourceLabel.text = [NSString stringWithFormat:@"来源:%@",model.image_source];
 }

@@ -40,7 +40,7 @@
     
     [self addSubview:_imageView];
     _imageView.userInteractionEnabled = YES;
-    [_imageView setImageWithURL:[NSURL URLWithString:imageUrl]];
+    [_imageView sd_setImageWithURL:[NSURL URLWithString:imageUrl]];
     _imageView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
     _imageView.contentMode = UIViewContentModeScaleAspectFit;
     
@@ -50,7 +50,7 @@
 
 - (void)removeImageBrowser
 {
-    [_imageView setImageWithURL:[NSURL URLWithString:@""]];
+    [_imageView sd_setImageWithURL:[NSURL URLWithString:@""]];
     [_imageView removeFromSuperview];
     self.hidden = YES;
 }
