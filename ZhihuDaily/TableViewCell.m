@@ -50,7 +50,7 @@
 
 + (CGFloat)textHeight:(NSString *)text {
     CGRect rectToFit = [text boundingRectWithSize:CGSizeMake(245.0f, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16.0f]} context:nil];
-    return rectToFit.size.height;
+    return ceil(rectToFit.size.height);
 }
 
 #pragma mark - UIView

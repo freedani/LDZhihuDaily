@@ -84,6 +84,7 @@
     [coverImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[coverImageView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(coverImageView)]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[coverImageView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(coverImageView)]];
+    coverImageView.userInteractionEnabled = YES;
 }
 
 - (void)setupTitleLabel

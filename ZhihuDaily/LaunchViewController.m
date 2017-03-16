@@ -31,7 +31,8 @@
     
     NSString *imageURLString = @"https://pic1.zhimg.com/v2-af3c66f37f9e31d7815f0b196b5865ec.jpg";
     NSURL *imageURL = [[NSURL alloc] initWithString:imageURLString];
-    [self.imageView sd_setImageWithURL:imageURL placeholderImage:[UIImage imageNamed:@"launchImage"]];
+    [self.imageView ld_setImageWithURL:imageURL placeholderImage:[UIImage imageNamed:@"launchImage"] ld_options:0];
+//    [self.imageView sd_setImageWithURL:imageURL placeholderImage:[UIImage imageNamed:@"launchImage"]];
     [self.view addSubview:self.imageView];
     [self.imageView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_imageView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_imageView)]];

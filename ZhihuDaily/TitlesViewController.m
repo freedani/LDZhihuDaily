@@ -246,7 +246,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     Titles *selectTitle = self.homepageModel.storiesArray[indexPath.section].dailyNewsList[(NSUInteger)indexPath.row];
-    [cell.imageView sd_setImageWithURL:selectTitle.imageURL placeholderImage:[UIImage imageNamed:@"profile-image-placeholder"]];
+    [cell.imageView ld_setImageWithURL:selectTitle.imageURL placeholderImage:[UIImage imageNamed:@"profile-image-placeholder"]];
 }
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingHeaderView:(UIView *)view forSection:(NSInteger)section{
