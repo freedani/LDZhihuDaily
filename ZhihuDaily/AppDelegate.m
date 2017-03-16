@@ -11,7 +11,7 @@
 #import "MainViewController.h"
 #import "MenuViewController.h"
 
-@interface AppDelegate ()<SDWebImageManagerDelegate>
+@interface AppDelegate ()
 
 @end
 
@@ -37,50 +37,17 @@
     self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
     
-    [SDWebImageManager sharedManager].delegate = self;
-    
     AFNetworkReachabilityManager *afNetworkReachabilityManager = [AFNetworkReachabilityManager sharedManager];
     [afNetworkReachabilityManager startMonitoring];
     
     return YES;
 }
 
-#pragma mark SDWebImageManagerDelegate
-
-//- (BOOL)imageManager:(SDWebImageManager *)imageManager shouldDownloadImageForURL:(NSURL *)imageURL {
-//    
-//    /*
-//     check the network condition and the setting
-//     */
-//    
-//    if ([self reachabilityStatusReachableViaWWAN]) {
-//        /*
-//         be care about what happen if reachability or setting change
-//         */
-////        return false;
-//        return true;
-//    }
-//    
-//    return true;
-//}
-
+/**
+ * Judge the reacheability status is WWAN(2/3/4G) or not.
+ * return YES means the status is WWAN.
+ */
 - (BOOL)reachabilityStatusReachableViaWWAN {
-//    switch([AFNetworkReachabilityManager sharedManager].networkReachabilityStatus) {
-//        case AFNetworkReachabilityStatusUnknown:
-//            NSLog(@"unknown");
-//            break;
-//        case AFNetworkReachabilityStatusNotReachable:
-//            NSLog(@"not reachable");
-//            break;
-//        case AFNetworkReachabilityStatusReachableViaWWAN:
-//            NSLog(@"2/3/4G");
-//            return true;
-//        case AFNetworkReachabilityStatusReachableViaWiFi:
-//            NSLog(@"WiFi");
-//            return false;
-//    }
-//    return true;
-    
     return [AFNetworkReachabilityManager sharedManager].networkReachabilityStatus == AFNetworkReachabilityStatusReachableViaWWAN;
 }
 
