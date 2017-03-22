@@ -10,6 +10,7 @@
 #import "TitlesViewController.h"
 #import "MainViewController.h"
 #import "MenuViewController.h"
+#import "ReplacingImageURLProtocol.h"
 
 @interface AppDelegate ()
 
@@ -39,6 +40,7 @@
     
     AFNetworkReachabilityManager *afNetworkReachabilityManager = [AFNetworkReachabilityManager sharedManager];
     [afNetworkReachabilityManager startMonitoring];
+    [NSURLProtocol registerClass:[ReplacingImageURLProtocol class]];
     
     return YES;
 }

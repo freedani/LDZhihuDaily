@@ -189,62 +189,42 @@
 #pragma mark - JavaScript
 
 - (void)addJavaScript {
-    NSString *clickImage =
-    @"function setImage(){\
-    var imgs = document.getElementsByTagName(\"img\");\
-    for (var i=0;i<imgs.length;i++){\
-    imgs[i].setAttribute(\"onclick\",\"imageClick(\"+i+\")\");\
-    }\
-    }\
-    function imageClick(i){\
-    var rect = getImageRect(i);\
-    var url=\"clickimage::\"+i+\"::\"+rect;\
-    document.location = url;\
-    }\
-    function getImageRect(i){\
-    var imgs = document.getElementsByTagName(\"img\");\
-    var rect;\
-    rect = imgs[i].getBoundingClientRect().left+\"::\";\
-    rect = rect+imgs[i].getBoundingClientRect().top+\"::\";\
-    rect = rect+imgs[i].width+\"::\";\
-    rect = rect+imgs[i].height;\
-    return rect;\
-    }\
-    function getAllImageUrl(){\
-    var imgs = document.getElementsByTagName(\"img\");\
-    var urlArray = [];\
-    for (var i=0;i<imgs.length;i++){\
-    var src = imgs[i].src;\
-    urlArray.push(src);\
-    }\
-    return urlArray.toString();\
-    }\
-    ";
-    [_webView evaluateJavaScript:clickImage completionHandler:nil];
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSString *filePath = [bundle pathForResource:@"javascript" ofType:@"js"];
+    NSString *clickImg = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    [_webView evaluateJavaScript:clickImg completionHandler:nil];
+    [_webView evaluateJavaScript:@"setImage();" completionHandler:nil];
 }
 
 #pragma mark - WKNavigationDelegate Method
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
     [self addJavaScript];
-    [webView evaluateJavaScript:@"setImage();" completionHandler:nil];
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(nonnull WKNavigationAction *)navigationAction decisionHandler:(nonnull void (^)(WKNavigationActionPolicy))decisionHandler{
     NSString *requestString = [[navigationAction.request URL] absoluteString];
     NSArray *components = [requestString componentsSeparatedByString:@"::"];
-    if ([components[0] isEqualToString:@"clickimage"]) {
+    if ([components[0] isEqualToString:@"clickimg"]) {
         int imgIndex = [components[1] intValue];
-        [_webView evaluateJavaScript:@"getAllImageUrl();" completionHandler:^(id urls, NSError *error){
-            NSString *imageUrl = [[urls componentsSeparatedByString:@","] objectAtIndex:imgIndex];
-            [self.imageBrowserView showImageBrowser:imageUrl];
+        [self.imageBrowserView showImageBrowser:components[2] completedBlock:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL){
+            if (image) {
+                NSData *data = UIImagePNGRepresentation(image);
+                if (data != nil) {
+                    NSString *base64 = [data base64EncodedStringWithOptions:0];
+                    NSString *url = [@"data:application/png;base64," stringByAppendingString:base64];
+                    NSString *js = [NSString stringWithFormat:@"changeImage(%d,'%@');",imgIndex,url];
+                    [_webView evaluateJavaScript:js completionHandler:nil];
+                }
+            }
+            
+            
         }];
         decisionHandler(WKNavigationActionPolicyCancel);
     } else {
         decisionHandler(WKNavigationActionPolicyAllow);
     }
     return;
-    
 }
 
 #pragma mark - WKUIDelegate Method

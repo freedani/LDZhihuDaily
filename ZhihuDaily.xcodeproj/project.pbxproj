@@ -35,6 +35,9 @@
 		069DE6DF1E5D4A390005E441 /* ThemesList.m in Sources */ = {isa = PBXBuildFile; fileRef = 069DE6DE1E5D4A390005E441 /* ThemesList.m */; };
 		069DE6E21E5D69B20005E441 /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 069DE6E11E5D69B20005E441 /* Theme.m */; };
 		069DE6E81E5FD46A0005E441 /* RefreshCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 069DE6E71E5FD46A0005E441 /* RefreshCircle.m */; };
+		06C6D6571E82A6DA007608CB /* ReplacingImageURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C6D6561E82A6DA007608CB /* ReplacingImageURLProtocol.m */; };
+		06C6D65A1E82A7F1007608CB /* NSURLProtocol+WebKitSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C6D6591E82A7F1007608CB /* NSURLProtocol+WebKitSupport.m */; };
+		06C6D65C1E82A9BF007608CB /* javascript.js in Resources */ = {isa = PBXBuildFile; fileRef = 06C6D65B1E82A9BF007608CB /* javascript.js */; };
 		06D649191DA3C9570009DE12 /* CircleViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D649171DA3C9570009DE12 /* CircleViewModel.m */; };
 		06D649221DA940610009DE12 /* HomepageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D649211DA940610009DE12 /* HomepageModel.m */; };
 		06D649251DB1C72A0009DE12 /* DailyNewsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D649241DB1C72A0009DE12 /* DailyNewsList.m */; };
@@ -103,6 +106,11 @@
 		069DE6E11E5D69B20005E441 /* Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Theme.m; sourceTree = "<group>"; };
 		069DE6E61E5FD46A0005E441 /* RefreshCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefreshCircle.h; sourceTree = "<group>"; };
 		069DE6E71E5FD46A0005E441 /* RefreshCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefreshCircle.m; sourceTree = "<group>"; };
+		06C6D6551E82A6DA007608CB /* ReplacingImageURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplacingImageURLProtocol.h; sourceTree = "<group>"; };
+		06C6D6561E82A6DA007608CB /* ReplacingImageURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplacingImageURLProtocol.m; sourceTree = "<group>"; };
+		06C6D6581E82A7F1007608CB /* NSURLProtocol+WebKitSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLProtocol+WebKitSupport.h"; sourceTree = "<group>"; };
+		06C6D6591E82A7F1007608CB /* NSURLProtocol+WebKitSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLProtocol+WebKitSupport.m"; sourceTree = "<group>"; };
+		06C6D65B1E82A9BF007608CB /* javascript.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = javascript.js; sourceTree = "<group>"; };
 		06D649171DA3C9570009DE12 /* CircleViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleViewModel.m; sourceTree = "<group>"; };
 		06D649181DA3C9570009DE12 /* CircleViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleViewModel.h; sourceTree = "<group>"; };
 		06D649201DA940610009DE12 /* HomepageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomepageModel.h; sourceTree = "<group>"; };
@@ -231,12 +239,17 @@
 		066FEBAC1D804E8A0001DC72 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				06C6D65B1E82A9BF007608CB /* javascript.js */,
+				06C6D6581E82A7F1007608CB /* NSURLProtocol+WebKitSupport.h */,
+				06C6D6591E82A7F1007608CB /* NSURLProtocol+WebKitSupport.m */,
 				066FEBBD1D804E8A0001DC72 /* Info.plist */,
 				066FEBAD1D804E8A0001DC72 /* main.m */,
 				063D95701D9DFDF30096C188 /* ZhihuDaily.pch */,
 				063D95711D9DFE620096C188 /* CommonMacros.h */,
 				069734A81E7989BA0067B24B /* UIImageView+LDWebCache.h */,
 				069734A91E7989BA0067B24B /* UIImageView+LDWebCache.m */,
+				06C6D6551E82A6DA007608CB /* ReplacingImageURLProtocol.h */,
+				06C6D6561E82A6DA007608CB /* ReplacingImageURLProtocol.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -401,6 +414,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				066FEBB91D804E8A0001DC72 /* Assets.xcassets in Resources */,
+				06C6D65C1E82A9BF007608CB /* javascript.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -476,12 +490,14 @@
 				065C7CE81E51E478009F81DE /* NavigationBar.m in Sources */,
 				069734A21E7946FC0067B24B /* SDCycleScrollView.m in Sources */,
 				069734A61E7946FC0067B24B /* TAPageControl.m in Sources */,
+				06C6D65A1E82A7F1007608CB /* NSURLProtocol+WebKitSupport.m in Sources */,
 				066FEBB11D804E8A0001DC72 /* AppDelegate.m in Sources */,
 				069DE6DF1E5D4A390005E441 /* ThemesList.m in Sources */,
 				06D649221DA940610009DE12 /* HomepageModel.m in Sources */,
 				069734A31E7946FC0067B24B /* TAAbstractDotView.m in Sources */,
 				063D956F1D9419E60096C188 /* NewsDetailViewController.m in Sources */,
 				069734A51E7946FC0067B24B /* TADotView.m in Sources */,
+				06C6D6571E82A6DA007608CB /* ReplacingImageURLProtocol.m in Sources */,
 				069DE6E21E5D69B20005E441 /* Theme.m in Sources */,
 				066FEBD01D80E72C0001DC72 /* TableViewCell.m in Sources */,
 				069734A11E7946FC0067B24B /* SDCollectionViewCell.m in Sources */,

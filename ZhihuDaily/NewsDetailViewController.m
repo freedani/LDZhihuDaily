@@ -12,6 +12,7 @@
 #import "HomepageModel.h"
 #import "AFAppDotNetAPIClient.h"
 #import "SQLiteManager.h"
+#import "NSURLProtocol+WebKitSupport.h"
 
 @interface NewsDetailViewController () <SwitchNewsDelegate>
 
@@ -31,6 +32,10 @@
     [self setAutomaticallyAdjustsScrollViewInsets:NO];
     [self initUI];
     [self initData];
+    
+    for (NSString* scheme in @[@"http", @"https"]) {
+        [NSURLProtocol wk_registerScheme:scheme];
+    }
     
     // Do any additional setup after loading the view.
 }
@@ -113,12 +118,12 @@
         }];
         
     } else {
-        NSLog(@"return false");
+//        NSLog(@"return false");
     }
 }
 
 - (void)switchToPreviousStoryWithCurrentSection:(NSInteger)section storyID:(NSInteger)storyID {
-    NSLog(@"old section:%ld,old storyID:%ld",section,storyID);
+//    NSLog(@"old section:%ld,old storyID:%ld",section,storyID);
     if([self.homePageModel getPreviousNewsWithSection:&section currentID:&storyID]) {
         
         NewsDetailView *newsDetailView = [[NewsDetailView alloc] initWithFrame:CGRectMake(0, -kScreenHeight, kScreenWidth, kScreenHeight)];
@@ -144,7 +149,7 @@
         }];
         
     } else {
-        NSLog(@"return false");
+//        NSLog(@"return false");
     }
 }
 

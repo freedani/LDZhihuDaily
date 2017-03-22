@@ -13,5 +13,6 @@
 @property(nonatomic, strong) UIImageView *imageView;
 
 - (void)showImageBrowser:(NSString *)imageUrl;
+- (void)showImageBrowser:(NSString *)imageUrl completedBlock:(SDExternalCompletionBlock)block;
 
 @end

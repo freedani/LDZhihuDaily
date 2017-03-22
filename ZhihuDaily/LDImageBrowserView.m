@@ -35,18 +35,20 @@
 }
 
 -(void)showImageBrowser:(NSString *)imageUrl{
-    
+    [self showImageBrowser:imageUrl completedBlock:nil];
+}
+
+- (void)showImageBrowser:(NSString *)imageUrl completedBlock:(SDExternalCompletionBlock)block{
     self.hidden = NO;
-    
     [self addSubview:_imageView];
     _imageView.userInteractionEnabled = YES;
-    [_imageView ld_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:nil ld_options:LDWebImageForced];
+    [_imageView sd_setImageWithURL:[NSURL URLWithString:imageUrl] completed:block];
     _imageView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
     _imageView.contentMode = UIViewContentModeScaleAspectFit;
-    
     [_imageView addGestureRecognizer:[[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(handlePinch:)]];
     [_imageView addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)]];
 }
+
 
 - (void)removeImageBrowser
 {

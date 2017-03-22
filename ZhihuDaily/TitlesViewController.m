@@ -326,7 +326,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
          */
         dispatch_async(dispatch_get_main_queue(), ^{
             [scrollView setContentOffset:CGPointMake(0.0f, 0.0f) animated:YES];
-            NSLog(@"%s",__func__);
+//            NSLog(@"%s",__func__);
         });
     }
 }
