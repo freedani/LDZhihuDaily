@@ -10,7 +10,7 @@
 #import "Titles.h"
 #import "CircleViewModel.h"
 #import "TableViewCell.h"
-#import "newsDetailViewController.h"
+#import "NewsDetailViewController.h"
 #import "HomepageModel.h"
 #import "DailyNewsList.h"
 #import "SectionView.h"
@@ -168,9 +168,10 @@ static const CGFloat tableViewCellHeight = 90.0f;
 
 -(void) initCircleView {
     
-    self.circleView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0.0f, -statuBarHeight, kScreenWidth, topImageHeight) delegate:self placeholderImage:[UIImage imageNamed:@"profile-image-placeholder"]];
-    [self.titleTableView addSubview:_circleView];
+    _circleView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0.0f, -statuBarHeight, kScreenWidth, topImageHeight) delegate:self placeholderImage:[UIImage imageNamed:@"profile-image-placeholder"]];
+    [self.titleTableView addSubview:self.circleView];
     [self.titleTableView setClipsToBounds:NO];
+    [self.circleView setUserInteractionEnabled:YES];
     self.circleView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
     self.circleView.titleLabelBackgroundColor = [UIColor clearColor];
     self.circleView.titleLabelTextFont = [UIFont systemFontOfSize:22.0f];
